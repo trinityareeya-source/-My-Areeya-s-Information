@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Areeya Promkhambut | Portfolio</title>
+    <title>Areeya Promkhambut | Whimsical Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.min.css">
     
     <style>
         :root {
-            --primary-color: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
+            --patch-red: #d9463e;
+            --patch-blue: #3b5998;
+            --patch-orange: #f28e2b;
+            --patch-green: #4e9f3d;
+            --patch-yellow: #f1c40f;
+            --bg-cream: #fbf9f3;
+            --text-main: #2b2b2b;
+            --text-muted: #6e6e6e;
+            --tile-shadow: 6px 6px 0px #e5dec9;
+            --button-shadow: 4px 4px 0px #2b2b2b;
         }
 
         * {
@@ -28,29 +31,57 @@
 
         body {
             font-family: 'Sarabun', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-cream);
+            /* แอบใส่ Background ลายตารางผ้ากิ๊งแฮมแบบโปร่งแสงเบาๆ */
+            background-image: 
+                linear-gradient(90deg, rgba(217, 70, 62, 0.02) 50%, transparent 50%),
+                linear-gradient(rgba(217, 70, 62, 0.02) 50%, transparent 50%);
+            background-size: 40px 40px;
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 40px 20px;
+            position: relative;
         }
 
-        /* Profile Header Section */
+        /* ตกแต่งสไตล์งานคอลลาจกระจายตามเว็บ */
+        .whimsical-sticker {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 10;
+            animation: float 4s ease-in-out infinite alternate;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        /* Ceramic Tile Style สำหรับการ์ดหลัก */
         .profile-header {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            background: var(--card-bg);
+            background: #ffffff;
             padding: 40px 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            border: 3px solid #2b2b2b;
+            box-shadow: var(--tile-shadow);
+            margin-bottom: 40px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .profile-header:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px #2b2b2b;
         }
 
         @media (min-width: 768px) {
@@ -62,22 +93,23 @@
             }
         }
 
+        /* กรอบรูปโปรไฟล์แบบ Patchwork */
         .profile-img-container {
             position: relative;
             width: 180px;
             height: 240px;
-            border-radius: 12px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
             margin-bottom: 20px;
             flex-shrink: 0;
-            border: 4px solid #fff;
+            border: 3px solid #2b2b2b;
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease;
+            box-shadow: 4px 4px 0px #2b2b2b;
         }
 
-        @media (min-width: 768px) {
-            .profile-img-container {
-                margin-bottom: 0;
-            }
+        .profile-header:hover .profile-img-container {
+            transform: rotate(3deg) scale(1.05);
         }
 
         .profile-img {
@@ -88,29 +120,38 @@
 
         .profile-info h1 {
             font-family: 'Space Grotesk', 'Sarabun', sans-serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 8px;
         }
 
         .profile-info .subtitle {
-            font-size: 1.1rem;
-            color: var(--primary-color);
-            font-weight: 500;
+            font-size: 1.15rem;
+            color: var(--patch-blue);
+            font-weight: 600;
             margin-bottom: 15px;
+            display: inline-block;
+            background: #eef2ff;
+            padding: 4px 12px;
+            border-radius: 12px;
+            border: 1.5px dashed var(--patch-blue);
         }
 
         .bio-details {
             font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .bio-details p {
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
+        /* ปุ่มกดดีไซน์กระดุม/แผ่นแปะ (Interactive Button) */
         .contact-links {
             display: flex;
             flex-wrap: wrap;
@@ -128,24 +169,26 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px;
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            padding: 10px 20px;
+            background-color: #fff;
+            border: 2px solid #2b2b2b;
+            border-radius: 40px;
             color: var(--text-main);
             text-decoration: none;
             font-size: 0.9rem;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            box-shadow: 3px 3px 0px #2b2b2b;
+            transition: all 0.1s ease;
+            cursor: pointer;
         }
 
         .btn-contact:hover {
-            background-color: var(--primary-color);
-            color: #white;
-            border-color: var(--primary-color);
-            color: #fff;
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px #2b2b2b;
+            background-color: var(--patch-yellow);
         }
 
-        /* Main Grid Layout */
+        /* โครงสร้างกริดหลัก */
         .main-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -158,57 +201,64 @@
             }
         }
 
+        /* เซกชันแบบแผ่นเซรามิกสีขาวนูน */
         .section-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
-            border: 1px solid var(--border-color);
-            margin-bottom: 30px;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 28px;
+            border: 3px solid #2b2b2b;
+            box-shadow: var(--tile-shadow);
+            margin-bottom: 35px;
+            transition: transform 0.2s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-3px);
         }
 
         .section-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             color: var(--text-main);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
+            padding-bottom: 10px;
+            border-bottom: 3px dashed #e5dec9;
         }
 
         .section-title i {
-            color: var(--primary-color);
+            padding: 8px;
+            background: #fbf9f3;
+            border-radius: 50%;
+            border: 2px solid #2b2b2b;
         }
 
-        /* Timeline Style (Experience & Education) */
+        /* เส้นไทม์ไลน์ตกแต่งสไตล์เย็บผ้า (Stitch line) */
         .timeline-item {
             position: relative;
-            padding-left: 24px;
-            margin-bottom: 25px;
+            padding-left: 30px;
+            margin-bottom: 30px;
         }
 
         .timeline-item::before {
-            content: '';
+            content: '🔴'; /* เปลี่ยนจุดเป็นอีโมจิกระดุมหรือผลไม้สีแดง */
             position: absolute;
-            left: 0;
-            top: 6px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
+            left: -4px;
+            top: 2px;
+            font-size: 0.9rem;
+            z-index: 2;
         }
 
         .timeline-item::after {
             content: '';
             position: absolute;
-            left: 4px;
+            left: 5px;
             top: 20px;
             width: 2px;
-            height: calc(100% + 10px);
-            background-color: var(--border-color);
+            height: calc(100% + 15px);
+            border-left: 2px dashed var(--patch-orange);
         }
 
         .timeline-item:last-child::after {
@@ -216,21 +266,27 @@
         }
 
         .timeline-date {
-            font-size: 0.85rem;
-            color: var(--primary-color);
+            display: inline-block;
+            font-size: 0.8rem;
+            background: var(--patch-orange);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            border: 1.5px solid #2b2b2b;
         }
 
         .timeline-role {
-            font-size: 1.05rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--text-main);
         }
 
         .timeline-org {
             font-size: 0.95rem;
-            color: var(--text-muted);
+            color: var(--patch-blue);
+            font-weight: 600;
             margin-bottom: 8px;
         }
 
@@ -239,66 +295,93 @@
             color: var(--text-muted);
         }
 
-        .timeline-desc ul {
-            list-style-type: square;
-            padding-left: 20px;
-            margin-top: 5px;
-        }
-
-        /* Tags Style (Skills & Interests) */
+        /* แท็กรูปทรงกระดุมเย็บผ้าขี้เล่น (Button-style Tags) */
         .tags-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 20px;
         }
 
         .tag {
             font-size: 0.85rem;
-            padding: 6px 12px;
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+            padding: 8px 16px;
+            background-color: #fff;
+            border: 2px solid #2b2b2b;
+            border-radius: 16px;
             color: var(--text-main);
+            font-weight: 600;
+            box-shadow: 2px 2px 0px #2b2b2b;
+            transition: all 0.1s ease;
+            position: relative;
         }
 
-        .tag-highlight {
-            background-color: #eff6ff;
-            border-color: #bfdbfe;
-            color: var(--primary-color);
-            font-weight: 500;
+        /* เพิ่มรูกระดุมเก๋ๆ ข้างใน Tag */
+        .tag::before, .tag::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #2b2b2b;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
         }
+        .tag::before { left: 8px; }
+        .tag::after { right: 8px; }
+
+        .tag:hover {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px #2b2b2b;
+        }
+
+        /* สลับสีสันของปุ่มตามใจชอบเหมือนผ้าปะติด */
+        .tag-highlight {
+            background-color: #ffeaa7;
+        }
+        
+        .tag-blue { background-color: #dff9fb; }
+        .tag-green { background-color: #ch8f9; background-color: #e3fef7; }
+        .tag-pink { background-color: #fce4ec; }
 
         footer {
             text-align: center;
-            margin-top: 50px;
-            font-size: 0.85rem;
+            margin-top: 60px;
+            font-size: 0.9rem;
+            font-weight: 600;
             color: var(--text-muted);
+            padding: 20px;
+            border-top: 3px dashed #2b2b2b;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <div class="whimsical-sticker" style="top: 2%; left: -20px;">🍊</div>
+        <div class="whimsical-sticker" style="top: 15%; right: -10px; animation-delay: 1s;">🐈</div>
+        <div class="whimsical-sticker" style="top: 45%; left: -30px; animation-delay: 2s;">🐟</div>
+        <div class="whimsical-sticker" style="top: 70%; right: -20px; animation-delay: 0.5s;">🌟</div>
+        <div class="whimsical-sticker" style="bottom: 5%; left: 20px;">🍏</div>
         
         <header class="profile-header">
             <div class="profile-img-container">
                 <img src="image.png" alt="Areeya Promkhambut" class="profile-img">
             </div>
             <div class="profile-info">
-                <h1>อารียา พรหมคำบุตร | Areeya Promkhambut</h1>
-                <div class="subtitle">นักศึกษาวิศวกรรมคอมพิวเตอร์ & ประธานรุ่นปีที่ 11</div>
+                <h1>อารียา พรหมคำบุตร</h1>
+                <div class="subtitle">Project Manager / UX/UI Developer & ประธานรุ่นปีที่ 11</div>
                 
                 <div class="bio-details">
-                    <p><i class="fa-regular fa-calendar-days"></i> <strong>วันเกิด:</strong> 17 กันยายน 2006</p>
-                    <p><i class="fa-solid fa-location-dot"></i> 52/28 ถนนดงปอ, ต.กาฬสินธุ์, อ.เมืองกาฬสินธุ์, จ.กาฬสินธุ์ 46000</p>
+                    <p>🍰 <strong>วันเกิด:</strong> 17 กันยายน 2006</p>
+                    <p>📍 52/28 ถนนดงปอ, ต.กาฬสินธุ์, อ.เมืองกาฬสินธุ์, จ.กาฬสินธุ์ 46000</p>
                 </div>
 
                 <div class="contact-links">
-                    <a href="mailto:trinityareeya@gmail.com" class="btn-contact"><i class="fa-regular fa-envelope"></i> trinityareeya@gmail.com</a>
-                    <a href="tel:+66831585681" class="btn-contact"><i class="fa-solid fa-phone"></i> (+66) 83-158-5681</a>
-                    <a href="https://www.linkedin.com/in/areeya-p-a0947b344?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="btn-contact"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-                </div>
+                    <a href="mailto:trinityareeya@gmail.com" class="btn-contact">✉️ trinityareeya@gmail.com</a>
+                    <a href="tel:+66831585681" class="btn-contact">📞 (+66) 83-158-5681</a>
+                    <a href="https://www.linkedin.com/in/areeya-p-a0947b344" target="_blank" class="btn-contact">🔗 LinkedIn</a>
                 </div>
             </div>
         </header>
@@ -308,19 +391,19 @@
             <div class="left-column">
                 
                 <section class="section-card">
-                    <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> ประวัติการทำงาน & กิจกรรม (Experience)</h2>
+                    <h2 class="section-title">💼 ประวัติการทำงาน & กิจกรรม</h2>
                     
                     <div class="timeline-item">
-                        <div class="timeline-date">พฤศจิกายน 2025 - ปัจจุบัน</div>
+                        <div class="timeline-date" style="background-color: var(--patch-red);">พฤศจิกายน 2025 - ปัจจุบัน</div>
                         <div class="timeline-role">Project Manager & UX/UI Developer</div>
-                        <div class="timeline-org">โครงการนวัตกรรมสังคมในชื่อทีม "ตะครุบ AI" | Rookie Innovator Program SS3 at SYSI</div>
+                        <div class="timeline-org">โครงการนวัตกรรมสังคม "ตะครุบ AI" | Rookie Innovator Program SS3 at SYSI</div>
                         <div class="timeline-desc">
-                            นำทีมออกแบบแนวคิด Human-centered AI ต้นแบบ LINE chatbot เพื่อรับมือกับข่าวปลอมและข้อมูลบิดเบือนแบบ Deepfake ผ่านกระบวนการออกแบบพฤติกรรม 
+                            นำทีมออกแบบแนวคิด Human-centered AI (ต้นแบบ LINE chatbot) เพื่อรับมือกับข่าวปลอมและข้อมูลบิดเบือนแบบ Deepfake ผ่านกระบวนการออกแบบพฤติกรรม
                         </div>
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-date">ธันวาคม 2025 - ปัจจุบัน</div>
+                        <div class="timeline-date" style="background-color: var(--patch-blue);">ธันวาคม 2025 - ปัจจุบัน</div>
                         <div class="timeline-role">Project Manager and Financial Operation</div>
                         <div class="timeline-org">Youth Voice for Eco-Law Forum</div>
                         <div class="timeline-desc">
@@ -329,7 +412,7 @@
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-date">ปัจจุบัน</div>
+                        <div class="timeline-date" style="background-color: var(--patch-green);">ปัจจุบัน</div>
                         <div class="timeline-role">Active Contributor of Thailand's Environmental Topic</div>
                         <div class="timeline-org">Ashoka NextGen Changemakers</div>
                         <div class="timeline-desc">
@@ -338,33 +421,34 @@
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-date">2020 - 2022</div>
+                        <div class="timeline-date" style="background-color: var(--patch-yellow); color:#2b2b2b;">2020 - 2022</div>
                         <div class="timeline-role">President, Investment Planner</div>
-                        <div class="timeline-org">English Club | St. Mary, Udon Thani, มัธยมต้น Grade 7-9</div>
+                        <div class="timeline-org">English Club (St. Mary, Udon Thani)</div>
                         <div class="timeline-desc">
-                            วางแผนและดำเนินกิจกรรมการแข่งขันและงานต่าง ๆ ของชมรม เพิ่มการมีส่วนร่วมและความต่อเนื่องของสมาชิกตลอดระยะเวลา 2 ปี 
+                            วางแผนและดำเนินกิจกรรมการแข่งขันและงานต่าง ๆ ของชมรม เพิ่มการมีส่วนร่วมและความต่อเนื่องของสมาชิกตลอดระยะเวลา 2 ปี ในช่วงมัธยมต้น (Grade 7-9)
                         </div>
                     </div>
                 </section>
 
                 <section class="section-card">
-                    <h2 class="section-title"><i class="fa-solid fa-trophy"></i> รางวัลและความสำเร็จ (Honors & Awards)</h2>
+                    <h2 class="section-title">🏆 รางวัลและความสำเร็จ</h2>
                     
                     <div class="timeline-item">
-                        <div class="timeline-date">พฤศจิกายน 2025</div>
-                        <div class="timeline-role">Winner, Policy Analyst | ชนะเลิศ</div>
+                        <div class="timeline-date" style="background-color: var(--patch-red);">พฤศจิกายน 2025</div>
+                        <div class="timeline-role">Winner, Policy Analyst (ชนะเลิศ)</div>
                         <div class="timeline-org">Thammasat Youth Deliberation Hackathon</div>
                         <div class="timeline-desc">
-                            วิเคราะห์ช่องว่างการเข้าถึงบำนาญ, ค่าครองชีพ และการจ้างงานหลังเกษียณ พัฒนาข้อเสนอแนะเชิงนโยบายที่ขับเคลื่อนด้วยข้อมูลเพื่อยกระดับความมั่นคงทางรายได้ของประชากรผู้สูงอายุในไทย
+                            วิเคราะห์ช่องว่างการเข้าถึงบำนาญ, ค่าครองชีพ และการจ้างงานหลังเกษียณ พัฒนาข้อเสนอแนะเชิงนโยบายที่ขับเคลื่อนด้วยข้อมูล เพื่อยกระดับความมั่นคงทางรายได้ของประชากรผู้สูงอายุในไทย
                         </div>
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-date">กรกฎาคม 2025 </div>
-                        <div class="timeline-role">Finalist Policy Drafter, Strategic Planner | เข้ารอบสุดท้าย</div>
+                        <div class="timeline-date" style="background-color: var(--patch-orange);">กรกฎาคม 2025</div>
+                        <div class="timeline-role">Finalist Policy Drafter, Strategic Planner (เข้ารอบสุดท้าย)</div>
                         <div class="timeline-org">Environmental PolicyFest Hackathon (GYBN)</div>
                         <div class="timeline-desc">
-                            ออกแบบแนวคิดเว็บแอปพลิเคชันที่กระตุ้นการประหยัดพลังงานไฟฟ้าผ่าน Behavioral Nudges ตั้งเป้าหมายลดความต้องการใช้ไฟฟ้าในกลุ่มครัวเรือนที่มีสถิติการใช้ไฟสูง 
+                            ออกแบบแนวคิดเว็บแอปพลิเคชันที่กระตุ้นการประหยัดพลังงานไฟฟ้าผ่าน Behavioral Nudges ตั้งเป้าหมายลดความต้องการใช้ไฟฟ้าในกลุ่มครัวเรือนที่มีสถิติการใช้ไฟสูง
+                        </div>
                     </div>
                 </section>
 
@@ -373,72 +457,70 @@
             <div class="right-column">
                 
                 <section class="section-card">
-                    <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> การศึกษา (Education)</h2>
+                    <h2 class="section-title">🎓 การศึกษา</h2>
                     
                     <div class="timeline-item">
-                        <div class="timeline-date">ปัจจุบัน</div>
+                        <div class="timeline-date" style="background-color: var(--patch-blue);">ปัจจุบัน</div>
                         <div class="timeline-role">ปริญญาตรี วิศวกรรมศาสตร์บัณฑิต</div>
-                        <div class="timeline-org">มหาวิทยาลัยกาฬสินธุ์ คณะวิศวกรรมศาสตร์และเทคโนโลยีอุตสาหกรรม | สาขาวิศวกรรมคอมพิวเตอร์</div>
+                        <div class="timeline-org">มหาวิทยาลัยกาฬสินธุ์ (สาขาวิศวกรรมคอมพิวเตอร์)</div>
                         <div class="timeline-desc">เน้นศึกษาความรู้พื้นฐานเกี่ยวกับ Embedded Systems และ Computer Networks</div>
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-date">มิถุนายน 2025 - ปัจจุบัน</div>
-                        <div class="timeline-role">ปริญญาตรี นิติศาสตร์บัณฑิต</div>
+                        <div class="timeline-date" style="background-color: var(--patch-green);">มิถุนายน 2025 - ปัจจุบัน</div>
+                        <div class="timeline-role">ปริญญาตรี นิติศาสตรบัณฑิต</div>
                         <div class="timeline-org">มหาวิทยาลัยรามคำแหง</div>
                         <div class="timeline-desc">พัฒนาทักษะในการประเมินประเด็นข้อกฎหมายและการสร้างข้อโต้แย้งอย่างมีหลักฐานอ้างอิง</div>
                     </div>
 
                     <div class="timeline-item">
-                        <div class="timeline-date">เมษายน 2022 - เมษายน 2023</div>
+                        <div class="timeline-date" style="background-color: var(--patch-red);">2022 - 2023</div>
                         <div class="timeline-role">มัธยมศึกษาตอนปลาย</div>
-                        <div class="timeline-org">โรงเรียนสาธิตมหาวิทยาลัยศรีนครินทรวิโรฒประสานมิตร</div>
-                        <div class="timeline-desc">ศึกษาหลักสูตรเน้นภาษาอังกฤษและสหวิทยาการที่มุ่งเน้นกลุ่มประเทศอาเซียน | ASEAN-focused interdisciplinary curriculum</div>
+                        <div class="timeline-org">มศว ประสานมิตร</div>
+                        <div class="timeline-desc">หลักสูตรเน้นภาษาอังกฤษและสหวิทยาการที่มุ่งเน้นกลุ่มประเทศอาเซียน (ASEAN-focused)</div>
                     </div>
                 </section>
 
                 <section class="section-card">
-                    <h2 class="section-title"><i class="fa-solid fa-code"></i> ทักษะ (Skills)</h2>
+                    <h2 class="section-title">🎨 ทักษะความสามารถ</h2>
                     
-                    <h3 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--text-main);">Hard Skills</h3>
+                    <h3 style="font-size: 0.95rem; margin-bottom: 8px;">Hard Skills</h3>
                     <div class="tags-container">
                         <span class="tag tag-highlight">Strategic Planner</span>
                         <span class="tag tag-highlight">Solution Architect</span>
                         <span class="tag tag-highlight">Data Analysis</span>
                     </div>
 
-                    <h3 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--text-main);">IT & Design Skills</h3>
+                    <h3 style="font-size: 0.95rem; margin-bottom: 8px;">IT & Design</h3>
                     <div class="tags-container">
-                        <span class="tag">Figma</span>
-                        <span class="tag">Microsoft Excel</span>
-                        <span class="tag">Embedded Systems</span>
-                        <span class="tag">Computer Networks</span>
+                        <span class="tag tag-blue">Figma</span>
+                        <span class="tag tag-blue">Microsoft Excel</span>
+                        <span class="tag tag-blue">Embedded Systems</span>
+                        <span class="tag tag-blue">Computer Networks</span>
                     </div>
 
-                    <h3 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--text-main);">Soft Skills</h3>
+                    <h3 style="font-size: 0.95rem; margin-bottom: 8px;">Soft Skills</h3>
                     <div class="tags-container">
-                        <span class="tag">Leadership</span>
-                        <span class="tag">Critical thinking</span>
-                        <span class="tag">Complex problem solving</span>
-                        <span class="tag">Pitching</span>
-                        <span class="tag">Collaboration</span>
-                        <span class="tag">Adaptability & Flexibility</span>
+                        <span class="tag tag-green">Leadership</span>
+                        <span class="tag tag-green">Critical thinking</span>
+                        <span class="tag tag-green">Pitching</span>
+                        <span class="tag tag-green">Collaboration</span>
                     </div>
 
-                    <h3 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--text-main);">Languages</h3>
+                    <h3 style="font-size: 0.95rem; margin-bottom: 8px;">Languages</h3>
                     <div class="tags-container">
-                        <span class="tag">Thai (Native)</span>
-                        <span class="tag">English (Advanced)</span>
+                        <span class="tag tag-pink">Thai (Native)</span>
+                        <span class="tag tag-pink">English (Advanced)</span>
                     </div>
                 </section>
 
                 <section class="section-card">
-                    <h2 class="section-title"><i class="fa-solid fa-heart"></i> ความสนใจ (Interests)</h2>
+                    <h2 class="section-title">❤️ ความสนใจพิเศษ</h2>
                     <div class="tags-container">
-                        <span class="tag">Investment Banking</span>
-                        <span class="tag">Green-Energy</span>
-                        <span class="tag">Agriculture Innovation</span>
-                        <span class="tag">Swimming</span>
+                        <span class="tag" style="background-color: #f7d794;">Investment Banking</span>
+                        <span class="tag" style="background-color: #78e08f;">Green-Energy</span>
+                        <span class="tag" style="background-color: #f8a5c2;">Agriculture Innovation</span>
+                        <span class="tag" style="background-color: #63cdda;">Swimming</span>
                     </div>
                 </section>
 
@@ -447,7 +529,7 @@
         </div>
 
         <footer>
-            <p>&copy; @ 2026 Areeya Promkhambut.</p>
+            <p>🧵 Crafted with Love & Whimsical Art © 2026 Areeya Promkhambut.</p>
         </footer>
 
     </div>
