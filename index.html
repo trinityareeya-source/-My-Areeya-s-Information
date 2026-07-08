@@ -49,7 +49,7 @@
             position: relative;
         }
 
-        /* 🌟 สติ๊กเกอร์ตกแต่งทั่วไปบนบราวเซอร์ (Stickers) 🌟 */
+        /* 🌟 คลาสระบบสติ๊กเกอร์ตกแต่ง (Stickers) 🌟 */
         .sticker {
             position: absolute;
             z-index: 10;
@@ -57,6 +57,47 @@
         }
         .sticker-1 { top: 20px; right: -20px; width: 60px; transform: rotate(15deg); }
         .sticker-2 { bottom: 30px; left: -15px; width: 50px; transform: rotate(-10deg); }
+
+        /* สติ๊กเกอร์เกาะรอบๆ รูปโปรไฟล์หน้าเรา */
+        .sticker-profile-container {
+            position: relative;
+            display: inline-block;
+        }
+        .sticker-profile {
+            position: absolute;
+            z-index: 5;
+            width: 45px; /* ปรับขนาดสติ๊กเกอร์เกาะรูปหน้าตรงนี้ */
+            pointer-events: none;
+        }
+        .sp-top-left { top: -10px; left: -10px; transform: rotate(-15deg); }
+        .sp-bottom-right { bottom: 10px; right: -10px; transform: rotate(15deg); }
+
+        /* สติ๊กเกอร์เกาะบนกล่องเล่นเพลง */
+        .music-player-container {
+            position: relative;
+            margin-top: 15px;
+        }
+        .sticker-music {
+            position: absolute;
+            z-index: 5;
+            width: 40px; /* ปรับขนาดสติ๊กเกอร์เกาะกล่องเพลงตรงนี้ */
+            pointer-events: none;
+        }
+        .sm-top-right { top: -20px; right: 10px; transform: rotate(10deg); }
+
+        /* สติ๊กเกอร์ไอคอนขนาดเล็กแทนอีโมจิ (Mini Icons) */
+        .mini-icon {
+            width: 32px;  /* ปรับขนาดสติ๊กเกอร์ไอคอนในข้อความตรงนี้ */
+            height: auto;
+            vertical-align: middle;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .badge .mini-icon {
+            width: 20px; /* สติ๊กเกอร์ขนาดจิ๋วพิเศษที่อยู่ในแถบป้ายชื่อ */
+            margin-right: 3px;
+        }
 
         /* Window Header สไตล์กรอบเบราว์เซอร์โบราณแต่น่ารัก */
         .window-header {
@@ -156,7 +197,6 @@
             border-radius: 15px;
             padding: 15px;
             text-align: center;
-            position: relative; /* รองรับสติ๊กเกอร์เกาะรอบๆ ข้างในคอลัมน์ */
         }
         
         .right-col {
@@ -166,34 +206,15 @@
             padding: 20px;
         }
 
-        /* Container สำหรับจัดการสติ๊กเกอร์รอบรูปโปรไฟล์ */
-        .profile-pic-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
         /* 🌟 รูปนักศึกษา (Profile Picture) 🌟 */
         .profile-pic {
             width: 150px;
             height: 150px;
             object-fit: cover;
             border-radius: 50%;
+            margin-bottom: 15px;
             background-color: white;
-            display: block;
         }
-
-        /* 🌟 สติ๊กเกอร์เกาะรอบรูปโปรไฟล์ 🌟 */
-        .pic-sticker {
-            position: absolute;
-            z-index: 5;
-            pointer-events: none;
-            width: 35px; /* ขนาดของสติ๊กเกอร์รอบรูป */
-        }
-        .pic-sticker-top-left { top: -5px; left: -5px; transform: rotate(-15deg); }
-        .pic-sticker-top-right { top: -5px; right: -5px; transform: rotate(15deg); }
-        .pic-sticker-bottom-left { bottom: -5px; left: -5px; transform: rotate(-30deg); }
-        .pic-sticker-bottom-right { bottom: -5px; right: -5px; transform: rotate(20deg); }
 
         h1 {
             color: var(--accent-red);
@@ -209,32 +230,13 @@
             display: inline-block;
         }
         
-        /* สติ๊กเกอร์ไอคอนขนาดเล็กที่ใช้แทน Emoji ข้อความ */
-        .text-sticker-icon {
-            width: 22px;
-            height: 22px;
-            vertical-align: middle;
-            margin-right: 5px;
-            object-fit: contain;
-        }
-
-        /* สติ๊กเกอร์ไอคอนขนาดใหญ่ขึ้นสำหรับหัวข้อการ์ด h2 */
-        .heading-sticker-icon {
-            width: 28px;
-            height: 28px;
-            vertical-align: middle;
-            margin-right: 6px;
-            object-fit: contain;
-        }
-
         .badge {
             background: var(--main-green);
             color: white;
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
+            display: inline-block;
             margin: 2px;
         }
 
@@ -244,11 +246,9 @@
             border: 3px solid var(--dark-green);
             border-radius: 10px;
             padding: 10px;
-            margin-top: 15px;
             color: white;
             text-align: center;
             font-family: 'Itim', cursive;
-            position: relative; /* รองรับสติ๊กเกอร์มาเกาะบนกล่องเพลง */
         }
         .music-player audio {
             width: 100%;
@@ -256,16 +256,6 @@
             margin-top: 5px;
             outline: none;
         }
-
-        /* 🌟 สติ๊กเกอร์เกาะบนกล่องเล่นเพลง 🌟 */
-        .music-sticker {
-            position: absolute;
-            z-index: 5;
-            pointer-events: none;
-            width: 32px; /* ขนาดสติ๊กเกอร์บนกล่องเพลง */
-        }
-        .music-sticker-top-left { top: -15px; left: 10px; transform: rotate(-10deg); }
-        .music-sticker-top-right { top: -18px; right: 15px; transform: rotate(15deg); }
         
         /* รายการลิงก์โซเชียลมีเดีย */
         .social-links {
@@ -338,41 +328,43 @@
                 <div class="profile-layout">
                     <div class="left-col">
                         
-                        <!-- 🌟 โซนรูปโปรไฟล์ + สติ๊กเกอร์เกาะขอบรอบๆ 🌟 -->
-                        <div class="profile-pic-container">
-                            <!-- คุณสามารถดาวน์โหลดสติ๊กเกอร์มาใส่ในโฟลเดอร์แล้วเปลี่ยนชื่อไฟล์ตรง src="your-sticker.png" ได้เลยค่ะ -->
-                            <img src="st1.png" class="pic-sticker pic-sticker-top-left" alt="sticker">
-                            <img src="st2.png" class="pic-sticker pic-sticker-top-right" alt="sticker">
-                            <img src="st3.png" class="pic-sticker pic-sticker-bottom-left" alt="sticker">
-                            <img src="st4.png" class="pic-sticker pic-sticker-bottom-right" alt="sticker">
+                        <!-- 🌟 สติ๊กเกอร์เกาะรอบๆ โปรไฟล์รูปหน้าเรา 🌟 -->
+                        <div class="sticker-profile-container">
+                            <!-- สติ๊กเกอร์เกาะมุมบนซ้าย (เปลี่ยน src เป็นชื่อไฟล์รูปสติ๊กเกอร์ของคุณได้เลยค่ะ) -->
+                            <img src="sticker-star.png" class="sticker-profile sp-top-left" alt="sticker">
+                            <!-- สติ๊กเกอร์เกาะมุมล่างขวา -->
+                            <img src="sticker-flower.png" class="sticker-profile sp-bottom-right" alt="sticker">
                             
-                            <!-- รูปหน้าเรา -->
+                            <!-- รูปนักศึกษาของคุณ -->
                             <img src="อาริ.jpg" alt="Areeya Photo" class="profile-pic">
                         </div>
                         
                         <h1>Areeya Promkhambut</h1>
                         <p style="font-size: 0.9rem;">นางสาวอารียา พรหมคำบุตร</p>
                         
-                        <!-- 🌟 เปลี่ยน Emoji ตรง Birthday และ CPE student เป็นไฟล์สติ๊กเกอร์ไอคอนขนาดเล็ก 🌟 -->
+                        <!-- 🌟 เปลี่ยนอีโมจิแถบป้ายตรงนี้เป็นสติ๊กเกอร์ไอคอนขนาดเล็ก 🌟 -->
                         <span class="badge">
-                            <img src="birthday-icon.png" class="text-sticker-icon" alt="icon"> 17 Sep 2006
+                            <img src="icon-cake.png" class="mini-icon" alt=""> 17 Sep 2006
                         </span>
                         <span class="badge">
-                            <img src="cpe-icon.png" class="text-sticker-icon" alt="icon"> CPE Student
+                            <img src="icon-com.png" class="mini-icon" alt=""> CPE Student
                         </span>
                         
-                        <!-- 🌟 เครื่องเล่นเพลงหน้าเว็บ + สติ๊กเกอร์เกาะด้านบนกล่องเพลง 🌟 -->
-                        <div class="music-player">
-                            <!-- สติ๊กเกอร์เกาะบนกล่องเพลง (เปลี่ยนชื่อไฟล์ตรง src ได้เลยค่ะ) -->
-                            <img src="music-st1.png" class="music-sticker music-sticker-top-left" alt="sticker">
-                            <img src="music-st2.png" class="music-sticker music-sticker-top-right" alt="sticker">
-
-                            <div>Play: <span>Stardew Valley OST - Cloud Country</span></div>
-                            <audio controls loop>
-                                <source src="YOUR_MUSIC_FILE.mp3" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
+                        <!-- 🌟 สติ๊กเกอร์เกาะบนกล่องเล่นเพลง 🌟 -->
+                        <div class="music-player-container">
+                            <!-- สติ๊กเกอร์เกาะมุมบนขวาของกล่องเพลง -->
+                            <img src="sticker-cat.png" class="sticker-music sm-top-right" alt="sticker">
+                            
+                            <!-- ตัวกล่องเครื่องเล่นเพลงหน้าเว็บ -->
+                            <div class="music-player">
+                                <div>Play: <span>Stardew Valley OST - Cloud Country</span></div>
+                                <audio controls loop>
+                                    <source src="YOUR_MUSIC_FILE.mp3" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
                         </div>
+
                     </div>
                     
                     <div class="right-col">
@@ -392,12 +384,12 @@
                 </div>
             </div>
 
-            <!-- TAB 2: Resume / Experience ข้อมูลทั้งหมดจากเรซูเม่ -->
+            <!-- TAB 2: Resume / Experience -->
             <div id="resume" class="tab-content">
                 <div style="background: white; border: 3px solid var(--main-green); border-radius: 15px; padding: 20px; max-height: 400px; overflow-y: auto;">
                     
-                    <!-- 🌟 เปลี่ยนอิโมจิหน้า Experience & Activities เป็นไฟล์สติ๊กเกอร์ไอคอน 🌟 -->
-                    <h2><img src="exp-icon.png" class="heading-sticker-icon" alt="icon">Experience & Activities</h2>
+                    <!-- 🌟 เปลี่ยนอีโมจิหัวข้อตรงนี้เป็นสติ๊กเกอร์ไอคอนขนาดเล็ก 🌟 -->
+                    <h2><img src="icon-star-title.png" class="mini-icon" alt=""> Experience & Activities</h2>
                     
                     <div class="resume-item">
                         <div class="resume-title">Project Manager & UX/UI Developer</div>
@@ -417,8 +409,8 @@
                         <p><strong>Ashoka NextGen Changemakers:</strong> ผลักดันประเด็นปัญหาสภาพภูมิอากาศของไทยผ่านนโยบายสภาพภูมิอากาศแบบมีส่วนร่วมและเวิร์กชอปการคิดเชิงระบบ</p>
                     </div>
 
-                    <!-- 🌟 เปลี่ยนอิโมจิหน้า Honors & Awards เป็นไฟล์สติ๊กเกอร์ไอคอน 🌟 -->
-                    <h2><img src="award-icon.png" class="heading-sticker-icon" alt="icon">Honors & Awards</h2>
+                    <!-- 🌟 เปลี่ยนอีโมจิหัวข้อตรงนี้เป็นสติ๊กเกอร์ไอคอนขนาดเล็ก 🌟 -->
+                    <h2><img src="icon-trophy.png" class="mini-icon" alt=""> Honors & Awards</h2>
                     <div class="resume-item">
                         <div class="resume-title">Winner, Policy Analyst</div>
                         <div class="resume-date">Nov 2025</div>
@@ -430,8 +422,8 @@
                         <p><strong>Environmental PolicyFest Hackathon (GYBN):</strong> ออกแบบคอนเซปต์บนเว็บที่ส่งเสริมการประหยัดไฟฟ้าผ่านพฤติกรรมสะกิด</p>
                     </div>
                     
-                    <!-- 🌟 เปลี่ยนอิโมจิหน้า Education เป็นไฟล์สติ๊กเกอร์ไอคอน 🌟 -->
-                    <h2><img src="edu-icon.png" class="heading-sticker-icon" alt="icon">Education</h2>
+                    <!-- 🌟 เปลี่ยนอีโมจิหัวข้อตรงนี้เป็นสติ๊กเกอร์ไอคอนขนาดเล็ก 🌟 -->
+                    <h2><img src="icon-book.png" class="mini-icon" alt=""> Education</h2>
                     <ul>
                         <li><strong>Kalasin University:</strong> Bachelor of Computer Engineering (June 2026 - Present)</li>
                         <li><strong>Ramkhamhaeng University:</strong> Bachelor of Law (June 2025 - Present)</li>
@@ -440,7 +432,7 @@
                 </div>
             </div>
 
-            <!-- TAB 3: Contact ลิงก์โซเชียลทั้งหมดของคุณอารียา -->
+            <!-- TAB 3: Contact -->
             <div id="contact" class="tab-content">
                 <div class="profile-layout">
                     <div class="left-col" style="display:flex; align-items:center; justify-content:center;">
