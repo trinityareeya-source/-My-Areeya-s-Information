@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Areeya's Profile🌻</title>
-    <!-- ฟอนต์ลายมือน่ารักๆ (สไตล์ Carrd/Scrapbook ไม่ใช่เชิงพาณิชย์ ใช้ฟอนต์อะไรก็ได้เลยค่ะ) -->
     <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;600&display=swap" rel="stylesheet">
-    <!-- ไอคอนโซเชียลมีเดียต่างๆ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -21,7 +19,6 @@
         }
 
         body {
-            /* เปลี่ยนภาพพื้นหลัง (Background) ที่นี่ */
             background-color: var(--bg-color);
             background-image: url('my-bg.jpg');
             background-size: cover;
@@ -48,14 +45,12 @@
             position: relative;
         }
 
-        /* คลาสระบบสติ๊กเกอร์ตกแต่ง (Stickers) */
         .sticker {
             position: absolute;
             z-index: 10;
             pointer-events: none;
         }
 
-        /* สติ๊กเกอร์เกาะรอบๆ รูปโปรไฟล์หน้าเรา */
         .sticker-profile-container {
             position: relative;
             display: inline-block;
@@ -69,7 +64,6 @@
         .sp-top-left { top: -17px; left: -16px; transform: rotate(20deg); }
         .sp-bottom-right { bottom: 10px; right: -10px; transform: rotate(-15deg); }
 
-        /* สติ๊กเกอร์เกาะบนกล่องเล่นเพลง */
         .music-player-container {
             position: relative;
             margin-top: 15px;
@@ -82,7 +76,6 @@
         }
         .sm-top-right { top: -35px; right: -25px; transform: rotate(-15deg); }
 
-        /* สติ๊กเกอร์ไอคอนขนาดเล็กแทนอีโมจิ (Mini Icons) */
         .mini-icon {
             width: 39px;
             height: auto;
@@ -96,7 +89,6 @@
             margin-right: 3px;
         }
 
-        /* Window Header สไตล์กรอบเบราว์เซอร์โบราณแต่น่ารัก */
         .window-header {
             background-color: var(--main-green);
             border-bottom: 4px solid var(--dark-green);
@@ -133,7 +125,6 @@
             text-align: center;
         }
 
-        /* ปุ่มสลับหน้า (Tabs Navbar) */
         .tabs {
             display: flex;
             background: #e9e0c5;
@@ -162,7 +153,6 @@
             background: #fff;
         }
 
-        /* พื้นที่แสดงเนื้อหา */
         .content-area {
             padding: 20px;
             display: flex;
@@ -179,7 +169,6 @@
             display: block;
         }
 
-        /* การจัดวางหน้าตา Profile */
         .profile-layout {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -196,13 +185,12 @@
             text-align: center;
         }
         
-        /* สร้างกล่องเนื้อหาฝั่งขวาให้มีคุณสมบัติเลื่อน Scroll ได้ */
         .right-col-scroll {
             background: white;
             border: 3px solid var(--main-green);
             border-radius: 15px;
             padding: 20px;
-            max-height: 440px; /* กำหนดความสูงให้พอดีและเลื่อนขึ้นลงได้ */
+            max-height: 440px; 
             overflow-y: auto;
         }
 
@@ -239,7 +227,6 @@
             margin: 2px;
         }
 
-        /* เครื่องเล่นเพลง */
         .music-player {
             background: var(--main-green);
             border: 3px solid var(--dark-green);
@@ -256,7 +243,6 @@
             outline: none;
         }
         
-        /* Photo Dump Layout */
         .photo-dump-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -281,7 +267,6 @@
             border-radius: 4px;
         }
 
-        /* รายการลิงก์โซเชียลมีเดีย */
         .social-links {
             list-style: none;
             padding: 0;
@@ -307,7 +292,6 @@
             transform: scale(1.02);
         }
         
-        /* ข้อมูลในหน้าเรซูเม่ */
         .resume-item {
             margin-bottom: 15px;
             padding-left: 15px;
@@ -325,7 +309,6 @@
 <body>
 
     <div class="container">
-        <!-- Window Browser Header -->
         <div class="window-header">
             <div class="window-controls">
                 <span class="btn-close"></span>
@@ -337,20 +320,16 @@
             </div>
         </div>
 
-        <!-- Navigation Tabs -->
         <div class="tabs">
             <button class="tab-btn active" onclick="openTab('about')">About Me</button>
             <button class="tab-btn" onclick="openTab('resume')">Resume</button>
             <button class="tab-btn" onclick="openTab('contact')">Contact</button>
         </div>
 
-        <!-- Main Content Area -->
         <div class="content-area">
             
-            <!-- TAB 1: About Me -->
             <div id="about" class="tab-content active">
                 <div class="profile-layout">
-                    <!-- ฝั่งซ้าย: รูปโปรไฟล์และเครื่องเล่นเพลง (อยู่กับที่) -->
                     <div class="left-col">
                         <div class="sticker-profile-container">
                             <img src="sticker-apple.png" class="sticker-profile sp-top-left" alt="sticker">
@@ -380,7 +359,6 @@
                         </div>
                     </div>
                     
-                    <!-- ฝั่งขวา: รายละเอียดต่างๆ ที่สามารถเลื่อน Scroll ได้ -->
                     <div class="right-col-scroll">
                         <h2>✧ About Me ✧</h2>
                         <p><strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ ประธานรุ่นปีที่ 11 มีความสนใจในด้านระบบสมองกลฝังตัวและเครือข่ายคอมพิวเตอร์</p>
@@ -397,10 +375,8 @@
                             <span class="badge" style="background:var(--accent-red)">Creative Expression</span>
                         </p>
 
-                        <!-- โซนสำหรับวาง Photo Dump / รูปภาพตกแต่งเพิ่มเติมเลื่อนได้ -->
                         <h2>✧ Photo Dump ✧</h2>
                         <div class="photo-dump-grid">
-                            <!-- คุณสามารถแก้ไขชื่อไฟล์รูปภาพในเครื่องของคุณตรง src="dump1.jpg" ได้เลยค่ะ -->
                             <div class="dump-item" style="--r: -3"><img src="photo1.jpg" alt="photo"></div>
                             <div class="dump-item" style="--r: 4"><img src="photo2.jpg" alt="photo"></div>
                             <div class="dump-item" style="--r: -2"><img src="photo3.jpg" alt="photo"></div>
@@ -409,7 +385,6 @@
                 </div>
             </div>
 
-            <!-- TAB 2: Resume / Experience -->
             <div id="resume" class="tab-content">
                 <div style="background: white; border: 3px solid var(--main-green); border-radius: 15px; padding: 20px; max-height: 440px; overflow-y: auto;">
                     <h2><img src="icon-star-title.png" class="mini-icon" alt=""> Experience & Activities</h2>
@@ -453,7 +428,6 @@
                 </div>
             </div>
 
-            <!-- TAB 3: Contact -->
             <div id="contact" class="tab-content">
                 <div class="profile-layout">
                     <div class="left-col" style="display:flex; align-items:center; justify-content:center;">
@@ -497,16 +471,14 @@
                 </div>
             </div>
 
-        </div> <!-- จบ content-area -->
+        </div>
 
-        <!-- โซนข้อความเครดิตท้ายเว็บที่เพิ่มให้ใหม่ค่ะ 🌻 -->
         <div style="text-align: center; padding: 15px 10px 12px 10px; font-size: 0.8rem; color: #a19a82; font-family: 'Itim', cursive; border-top: 2px dashed rgba(137, 167, 109, 0.2);">
             @2026 Created by Areeya.
         </div>
 
-    </div> <!-- จบ container -->
+    </div>
 
-    <!-- Script สำหรับการสลับแท็บแบบ Interactive -->
     <script>
         function openTab(tabName) {
             var i, tabcontent, tablinks;
