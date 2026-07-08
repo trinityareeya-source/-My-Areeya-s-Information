@@ -3,24 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Areeya Promkhambut | Whimsical Portfolio</title>
+    <title>Areeya Promkhambut | Retro Whimsical Page</title>
+    <!-- ใช้ฟอนต์น่ารักๆ มีความโค้งมนมนมนต์ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --patch-red: #d9463e;
-            --patch-blue: #3b5998;
-            --patch-orange: #f28e2b;
-            --patch-green: #4e9f3d;
-            --patch-yellow: #f1c40f;
-            --bg-cream: #fbf9f3;
-            --text-main: #2b2b2b;
-            --text-muted: #6e6e6e;
-            --tile-shadow: 6px 6px 0px #e5dec9;
-            --button-shadow: 4px 4px 0px #2b2b2b;
+            --window-border: #6d7041;
+            --window-bg: #f9f6e5;
+            --header-green: #90ab64;
+            --accent-red: #cc5a51;
+            --text-dark: #4a4c2d;
+            --tab-inactive: #f0ebd1;
+            --tab-active: #ffffff;
         }
 
         * {
@@ -30,506 +27,340 @@
         }
 
         body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: var(--bg-cream);
-            /* แอบใส่ Background ลายตารางผ้ากิ๊งแฮมแบบโปร่งแสงเบาๆ */
-            background-image: 
-                linear-gradient(90deg, rgba(217, 70, 62, 0.02) 50%, transparent 50%),
-                linear-gradient(rgba(217, 70, 62, 0.02) 50%, transparent 50%);
-            background-size: 40px 40px;
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: 'Sarabun', 'Fredoka', sans-serif;
+            background-color: #d1cca0;
+            /* 🔴 [ส่วนแก้ไขที่ 1] ภาพพื้นหลังใหญ่สุดของเว็บไซต์ (ลายดอกไม้เรโทร) */
+            background-image: url('https://img.freepik.com/free-vector/flat-design-vintage-floral-pattern_23-2150917631.jpg');
+            background-size: 300px;
+            background-repeat: repeat;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        /* โครงสร้างหน้าต่างเบราว์เซอร์จำลอง (Mockup Window) */
+        .browser-window {
+            width: 100%;
+            max-width: 850px;
+            background-color: var(--window-bg);
+            border: 4px solid var(--window-border);
+            border-radius: 20px;
+            box-shadow: 12px 12px 0px rgba(74, 76, 45, 0.2);
+            overflow: hidden;
             position: relative;
         }
 
-        /* ตกแต่งสไตล์งานคอลลาจกระจายตามเว็บ */
-        .whimsical-sticker {
-            position: absolute;
-            font-size: 1.8rem;
-            opacity: 0.8;
-            pointer-events: none;
-            z-index: 10;
-            animation: float 4s ease-in-out infinite alternate;
-        }
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-10px) rotate(5deg); }
+        /* แถบด้านบนสุดของเบราว์เซอร์ (URL Bar) */
+        .window-top-bar {
+            background-color: var(--header-green);
+            background-image: radial-gradient(#6d7041 15%, transparent 15%);
+            background-size: 8px 8px; /* ลายจุด Polka dot บนแถบสีเขียว */
+            border-bottom: 4px solid var(--window-border);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        /* Ceramic Tile Style สำหรับการ์ดหลัก */
-        .profile-header {
+        .url-display {
+            background-color: #ffffff;
+            border: 2px solid var(--window-border);
+            border-radius: 12px;
+            padding: 4px 15px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            width: 60%;
+            font-weight: bold;
+        }
+
+        .window-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .win-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--window-border);
+            background-color: #fff;
+            display: inline-block;
+        }
+        .win-btn.close { background-color: var(--accent-red); }
+
+        /* แถบเมนูแท็บ (Tabs System) */
+        .tabs-container {
+            background-color: #e5dec3;
+            border-bottom: 4px solid var(--window-border);
+            display: flex;
+            padding: 8px 16px 0 16px;
+            gap: 5px;
+        }
+
+        .tab-button {
+            background-color: var(--tab-inactive);
+            border: 3px solid var(--window-border);
+            border-bottom: none;
+            border-radius: 12px 12px 0 0;
+            padding: 6px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            margin-bottom: -4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-button.active {
+            background-color: var(--tab-active);
+            padding-bottom: 8px;
+            z-index: 3;
+        }
+
+        /* ส่วนเนื้อหาภายใน (Main Content Box) */
+        .window-body {
+            background-color: #ffffff;
+            padding: 30px;
+            min-height: 450px;
+        }
+
+        /* ซ่อนเนื้อหาแท็บที่ไม่ได้เลือก */
+        .tab-content {
+            display: none;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: grid;
+        }
+
+        @media (min-width: 768px) {
+            .tab-content { grid-template-columns: 1fr 1.2fr; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* คอลัมน์ซ้าย: รูปประกอบ / แผ่นปะคอลลาจ */
+        .collage-zone {
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            background: #ffffff;
-            padding: 40px 20px;
-            border-radius: 30px;
-            border: 3px solid #2b2b2b;
-            box-shadow: var(--tile-shadow);
-            margin-bottom: 40px;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .profile-header:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 8px 8px 0px #2b2b2b;
-        }
-
-        @media (min-width: 768px) {
-            .profile-header {
-                flex-direction: row;
-                text-align: left;
-                padding: 50px;
-                gap: 50px;
-            }
-        }
-
-        /* กรอบรูปโปรไฟล์แบบ Patchwork */
-        .profile-img-container {
-            position: relative;
-            width: 180px;
-            height: 240px;
-            border-radius: 24px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            flex-shrink: 0;
-            border: 3px solid #2b2b2b;
-            transform: rotate(-3deg);
-            transition: transform 0.3s ease;
-            box-shadow: 4px 4px 0px #2b2b2b;
-        }
-
-        .profile-header:hover .profile-img-container {
-            transform: rotate(3deg) scale(1.05);
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-info h1 {
-            font-family: 'Space Grotesk', 'Sarabun', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-
-        .profile-info .subtitle {
-            font-size: 1.15rem;
-            color: var(--patch-blue);
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: inline-block;
-            background: #eef2ff;
-            padding: 4px 12px;
-            border-radius: 12px;
-            border: 1.5px dashed var(--patch-blue);
-        }
-
-        .bio-details {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 25px;
-        }
-
-        .bio-details p {
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* ปุ่มกดดีไซน์กระดุม/แผ่นแปะ (Interactive Button) */
-        .contact-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
             justify-content: center;
         }
 
-        @media (min-width: 768px) {
-            .contact-links {
-                justify-content: flex-start;
-            }
-        }
-
-        .btn-contact {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background-color: #fff;
-            border: 2px solid #2b2b2b;
-            border-radius: 40px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: 3px 3px 0px #2b2b2b;
-            transition: all 0.1s ease;
-            cursor: pointer;
-        }
-
-        .btn-contact:hover {
-            transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0px #2b2b2b;
-            background-color: var(--patch-yellow);
-        }
-
-        /* โครงสร้างกริดหลัก */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-
-        @media (min-width: 768px) {
-            .main-grid {
-                grid-template-columns: 2fr 1fr;
-            }
-        }
-
-        /* เซกชันแบบแผ่นเซรามิกสีขาวนูน */
-        .section-card {
-            background: #ffffff;
-            padding: 35px;
-            border-radius: 28px;
-            border: 3px solid #2b2b2b;
-            box-shadow: var(--tile-shadow);
-            margin-bottom: 35px;
-            transition: transform 0.2s ease;
-        }
-
-        .section-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-main);
-            padding-bottom: 10px;
-            border-bottom: 3px dashed #e5dec9;
-        }
-
-        .section-title i {
-            padding: 8px;
-            background: #fbf9f3;
-            border-radius: 50%;
-            border: 2px solid #2b2b2b;
-        }
-
-        /* เส้นไทม์ไลน์ตกแต่งสไตล์เย็บผ้า (Stitch line) */
-        .timeline-item {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 30px;
-        }
-
-        .timeline-item::before {
-            content: '🔴'; /* เปลี่ยนจุดเป็นอีโมจิกระดุมหรือผลไม้สีแดง */
-            position: absolute;
-            left: -4px;
-            top: 2px;
-            font-size: 0.9rem;
-            z-index: 2;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 20px;
-            width: 2px;
-            height: calc(100% + 15px);
-            border-left: 2px dashed var(--patch-orange);
-        }
-
-        .timeline-item:last-child::after {
-            display: none;
-        }
-
-        .timeline-date {
-            display: inline-block;
-            font-size: 0.8rem;
-            background: var(--patch-orange);
-            color: white;
-            padding: 2px 10px;
+        .main-illust {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border: 4px solid var(--window-border);
             border-radius: 20px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            border: 1.5px solid #2b2b2b;
+            object-fit: cover;
+            box-shadow: 4px 4px 0px var(--window-border);
+            background-color: #fff;
         }
 
-        .timeline-role {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .timeline-org {
-            font-size: 0.95rem;
-            color: var(--patch-blue);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .timeline-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* แท็กรูปทรงกระดุมเย็บผ้าขี้เล่น (Button-style Tags) */
-        .tags-container {
+        /* คอลัมน์ขวา: รายละเอียดข้อความ */
+        .info-zone {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .profile-title {
+            background-color: #bfd49c;
+            border: 2px solid var(--window-border);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        .info-zone h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .info-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
             margin-bottom: 20px;
         }
 
-        .tag {
-            font-size: 0.85rem;
-            padding: 8px 16px;
-            background-color: #fff;
-            border: 2px solid #2b2b2b;
-            border-radius: 16px;
-            color: var(--text-main);
-            font-weight: 600;
-            box-shadow: 2px 2px 0px #2b2b2b;
-            transition: all 0.1s ease;
-            position: relative;
+        /* ดีไซน์รายการลิ้งก์เลียนแบบไอคอนหนอน/ผลไม้ในรูปตัวอย่าง */
+        .links-list {
+            list-style: none;
         }
 
-        /* เพิ่มรูกระดุมเก๋ๆ ข้างใน Tag */
-        .tag::before, .tag::after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: #2b2b2b;
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            display: none;
-        }
-        .tag::before { left: 8px; }
-        .tag::after { right: 8px; }
-
-        .tag:hover {
-            transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0px #2b2b2b;
+        .links-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
         }
 
-        /* สลับสีสันของปุ่มตามใจชอบเหมือนผ้าปะติด */
-        .tag-highlight {
-            background-color: #ffeaa7;
+        .links-list a {
+            color: var(--text-dark);
+            text-decoration: underline;
+            text-underline-offset: 4px;
         }
-        
-        .tag-blue { background-color: #dff9fb; }
-        .tag-green { background-color: #ch8f9; background-color: #e3fef7; }
-        .tag-pink { background-color: #fce4ec; }
 
-        footer {
-            text-align: center;
-            margin-top: 60px;
+        .links-list a:hover {
+            color: var(--accent-red);
+        }
+
+        /* แถบเครื่องเล่นเพลงจำลองด้านล่างสุด (Music Player Mockup) */
+        .music-player-bar {
+            background-color: #8fa667;
+            border-top: 4px solid var(--window-border);
+            border-bottom: 4px solid var(--window-border);
+            padding: 10px 20px;
+            color: #ffffff;
+            font-weight: bold;
             font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            padding: 20px;
-            border-top: 3px dashed #2b2b2b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ตกแต่งด้วยสติกเกอร์ตามจุดต่างๆ แบบในต้นฉบับ */
+        .sticker-stamp {
+            display: inline-block;
+            font-size: 1.5rem;
+            vertical-align: middle;
+            margin: 0 5px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="whimsical-sticker" style="top: 2%; left: -20px;">🍊</div>
-        <div class="whimsical-sticker" style="bottom: 5%; left: 20px;">🍏</div>
+    <!-- โครงสร้างหลักตัวหน้าต่างเบราว์เซอร์ -->
+    <div class="browser-window">
         
-        <header class="profile-header">
-            <div class="profile-img-container">
-                <img src="image.png" alt="Areeya Promkhambut" class="profile-img">
+        <!-- แถบด้านบนสุด -->
+        <div class="window-top-bar">
+            <div style="font-weight: bold; color: white;">🐛 https://areeya.carrd.co</div>
+            <div class="url-display">areeya-portfolio-retro.com</div>
+            <div class="window-buttons">
+                <span class="win-btn"></span>
+                <span class="win-btn"></span>
+                <span class="win-btn close"></span>
             </div>
-            <div class="profile-info">
-                <h1>อารียา พรหมคำบุตร</h1>
-                <div class="subtitle">นักศึกษาสาขาวิศวกรรมคอมพิวเตอร์ | ประธานรุ่นปีที่ 11</div>
-                
-                <div class="bio-details">
-                    <p><strong>วันเกิด:</strong> 17 กันยายน 2006</p>
-                    <p><strong>ที่อยู่:</strong> 52/28 ถนนดงปอ, ต.กาฬสินธุ์, อ.เมืองกาฬสินธุ์, จ.กาฬสินธุ์ 46000</p>
-                </div>
+        </div>
 
-                <div class="contact-links">
-                    <a href="mailto:trinityareeya@gmail.com" class="btn-contact">✉️ trinityareeya@gmail.com</a>
-                    <a href="tel:+66831585681" class="btn-contact">📞 (+66) 83-158-5681</a>
-                    <a href="https://www.linkedin.com/in/areeya-p-a0947b344" target="_blank" class="btn-contact">🔗 LinkedIn</a>
-                </div>
-            </div>
-        </header>
+        <!-- แถบแท็บเมนู (สามารถกดสลับไปมาได้จริง) -->
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(event, 'about')">About Me 🐈</button>
+            <button class="tab-button" onclick="switchTab(event, 'experience')">Works 💼</button>
+            <button class="tab-button" onclick="switchTab(event, 'education')">Education 🎓</button>
+        </div>
 
-        <div class="main-grid">
+        <!-- ส่วนของเครื่องเล่นเพลงจำลอง (น่ารักแบบเรโทร) -->
+        <div class="music-player-bar">
+            <div>🎵 Now Playing — นวัตกรรมสังคม "ตะครุบ AI"</div>
+            <div>01:58 ━━━━●──────── 03:44</div>
+        </div>
+
+        <!-- เนื้อหาภายในหน้าต่างหน้าเว็บ -->
+        <div class="window-body">
             
-            <div class="left-column">
-                
-                <section class="section-card">
-                    <h2 class="section-title">💼 ประวัติการทำงาน & กิจกรรม</h2>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-date" style="background-color: var(--patch-red);">พฤศจิกายน 2025 - ปัจจุบัน</div>
-                        <div class="timeline-role">Project Manager & UX/UI Developer</div>
-                        <div class="timeline-org">โครงการนวัตกรรมสังคม "ตะครุบ AI" | Rookie Innovator Program SS3 at SYSI</div>
-                        <div class="timeline-desc">
-                            นำทีมออกแบบแนวคิด Human-centered AI (ต้นแบบ LINE chatbot) เพื่อรับมือกับข่าวปลอมและข้อมูลบิดเบือนแบบ Deepfake ผ่านกระบวนการออกแบบพฤติกรรม
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-date" style="background-color: var(--patch-blue);">ธันวาคม 2025 - ปัจจุบัน</div>
-                        <div class="timeline-role">Project Manager and Financial Operation</div>
-                        <div class="timeline-org">Youth Voice for Eco-Law Forum</div>
-                        <div class="timeline-desc">
-                            บริหารจัดการองค์กรพัฒนาเอกชนอิสระ ชื่อ "Saphap. Thailand" ภายใต้ทุนสนับสนุน Ashoka NextGen ChangeMakers จัดตั้งเวทีเยาวชนที่รัฐสภาเพื่อร่วมออกแบบกฎหมายสิ่งแวดล้อมที่นำไปใช้ได้จริง
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-date" style="background-color: var(--patch-green);">ปัจจุบัน</div>
-                        <div class="timeline-role">Active Contributor of Thailand's Environmental Topic</div>
-                        <div class="timeline-org">Ashoka NextGen Changemakers</div>
-                        <div class="timeline-desc">
-                            ขับเคลื่อนและรณรงค์ประเด็นด้านสภาพภูมิอากาศของประเทศไทยในระดับสากลผ่านกระบวนการมีส่วนร่วมในนโยบายภูมิอากาศ และการจัดเวิร์กชอปการคิดเชิงระบบ
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-date" style="background-color: var(--patch-yellow); color:#2b2b2b;">2020 - 2022</div>
-                        <div class="timeline-role">President, Investment Planner</div>
-                        <div class="timeline-org">English Club (St. Mary, Udon Thani)</div>
-                        <div class="timeline-desc">
-                            วางแผนและดำเนินกิจกรรมการแข่งขันและงานต่าง ๆ ของชมรม เพิ่มการมีส่วนร่วมและความต่อเนื่องของสมาชิกตลอดระยะเวลา 2 ปี ในช่วงมัธยมต้น (Grade 7-9)
-                        </div>
-                    </div>
-                </section>
-
-                <section class="section-card">
-                    <h2 class="section-title">🏆 รางวัลและความสำเร็จ</h2>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-date" style="background-color: var(--patch-red);">พฤศจิกายน 2025</div>
-                        <div class="timeline-role">Winner, Policy Analyst (ชนะเลิศ)</div>
-                        <div class="timeline-org">Thammasat Youth Deliberation Hackathon</div>
-                        <div class="timeline-desc">
-                            วิเคราะห์ช่องว่างการเข้าถึงบำนาญ, ค่าครองชีพ และการจ้างงานหลังเกษียณ พัฒนาข้อเสนอแนะเชิงนโยบายที่ขับเคลื่อนด้วยข้อมูล เพื่อยกระดับความมั่นคงทางรายได้ของประชากรผู้สูงอายุในไทย
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-date" style="background-color: var(--patch-orange);">กรกฎาคม 2025</div>
-                        <div class="timeline-role">Finalist Policy Drafter, Strategic Planner (เข้ารอบสุดท้าย)</div>
-                        <div class="timeline-org">Environmental PolicyFest Hackathon (GYBN)</div>
-                        <div class="timeline-desc">
-                            ออกแบบแนวคิดเว็บแอปพลิเคชันที่กระตุ้นการประหยัดพลังงานไฟฟ้าผ่าน Behavioral Nudges ตั้งเป้าหมายลดความต้องการใช้ไฟฟ้าในกลุ่มครัวเรือนที่มีสถิติการใช้ไฟสูง
-                        </div>
-                    </div>
-                </section>
-
+            <!-- แท็บที่ 1: About Me -->
+            <div id="about" class="tab-content active">
+                <div class="collage-zone">
+                    <!-- 🔴 [ส่วนแก้ไขที่ 2] ภาพประกอบหลักของแท็บนี้ (สามารถเปลี่ยนลิงก์ภาพแนวที่ชอบได้) -->
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=500" alt="Illustration" class="main-illust">
+                </div>
+                <div class="info-zone">
+                    <div class="profile-title">NAME 🍊 (@Areeya_P)</div>
+                    <h2>อารียา พรหมคำบุตร</h2>
+                    <p class="info-text">
+                        นักศึกษาวิศวกรรมคอมพิวเตอร์ & ประธานรุ่นปีที่ 11 ผู้หลงใหลในกระบวนการคิดเชิงระบบ (Systems Thinking) และการออกแบบนวัตกรรมเทคโนโลยีที่ตอบโจทย์พฤติกรรมมนุษย์! 🍰 
+                    </p>
+                    <ul class="links-list">
+                        <li>🍎 <a href="mailto:trinityareeya@gmail.com">trinityareeya@gmail.com</a></li>
+                        <li>📞 <a href="tel:+66831585681">(+66) 83-158-5681</a></li>
+                        <li>🌟 <a href="https://www.linkedin.com/in/areeya-p-a0947b344" target="_blank">LinkedIn Profile</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="right-column">
-                
-                <section class="section-card">
-                    <h2 class="section-title">การศึกษา</h2>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-date" style="background-color: var(--patch-blue);">ปัจจุบัน</div>
-                        <div class="timeline-role">ปริญญาตรี วิศวกรรมศาสตร์บัณฑิต</div>
-                        <div class="timeline-org">มหาวิทยาลัยกาฬสินธุ์ (สาขาวิศวกรรมคอมพิวเตอร์)</div>
-                        <div class="timeline-desc">เน้นศึกษาความรู้พื้นฐานเกี่ยวกับ Embedded Systems และ Computer Networks</div>
-                    </div>
+            <!-- แท็บที่ 2: Works & Experience -->
+            <div id="experience" class="tab-content">
+                <div class="collage-zone">
+                    <!-- 🔴 [ส่วนแก้ไขที่ 3] ภาพแท็บกิจกรรม/ผลงาน -->
+                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=500" alt="Works Illustration" class="main-illust">
+                </div>
+                <div class="info-zone">
+                    <div class="profile-title">HIGHLIGHT PROJECTS 💼</div>
+                    <h2 style="font-size: 1.4rem; color: var(--accent-red);">Project Manager & UX/UI</h2>
+                    <p class="info-text" style="margin-bottom: 10px;">
+                        • <strong>ตะครุบ AI (SYSI):</strong> ออกแบบแนวคิด LINE Chatbot รับมือข่าวปลอมด้วยเทคนิค Human-centered AI<br>
+                        • <strong>Saphap. Thailand:</strong> บริหารจัดการองค์กรเวทีเยาวชนออกแบบกฎหมายสิ่งแวดล้อมที่รัฐสภา
+                    </p>
+                    <div class="profile-title">AWARDS 🏆</div>
+                    <p class="info-text">
+                        • <strong>Winner</strong> - Thammasat Youth Deliberation Hackathon (วิเคราะห์นโยบายบำนาญผู้สูงอายุ)<br>
+                        • <strong>Finalist</strong> - Environmental PolicyFest Hackathon (แอปประหยัดไฟผ่าน Nudge)
+                    </p>
+                </div>
+            </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-date" style="background-color: var(--patch-green);">มิถุนายน 2025 - ปัจจุบัน</div>
-                        <div class="timeline-role">ปริญญาตรี นิติศาสตรบัณฑิต</div>
-                        <div class="timeline-org">มหาวิทยาลัยรามคำแหง</div>
-                        <div class="timeline-desc">พัฒนาทักษะในการประเมินประเด็นข้อกฎหมายและการสร้างข้อโต้แย้งอย่างมีหลักฐานอ้างอิง</div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-date" style="background-color: var(--patch-red);">2022 - 2023</div>
-                        <div class="timeline-role">มัธยมศึกษาตอนปลาย</div>
-                        <div class="timeline-org">มศว ประสานมิตร</div>
-                        <div class="timeline-desc">หลักสูตรเน้นภาษาอังกฤษและสหวิทยาการที่มุ่งเน้นกลุ่มประเทศอาเซียน (ASEAN-focused)</div>
-                    </div>
-                </section>
-
-                <section class="section-card">
-                    <h2 class="section-title">🎨 ทักษะความสามารถ</h2>
-                    
-                    <h3 style="font-size: 0.95rem; margin-bottom: 8px;">Hard Skills</h3>
-                    <div class="tags-container">
-                        <span class="tag tag-highlight">Strategic Planner</span>
-                        <span class="tag tag-highlight">Solution Architect</span>
-                        <span class="tag tag-highlight">Data Analysis</span>
-                    </div>
-
-                    <h3 style="font-size: 0.95rem; margin-bottom: 8px;">IT & Design</h3>
-                    <div class="tags-container">
-                        <span class="tag tag-blue">Figma</span>
-                        <span class="tag tag-blue">Microsoft Excel</span>
-                        <span class="tag tag-blue">Embedded Systems</span>
-                        <span class="tag tag-blue">Computer Networks</span>
-                    </div>
-
-                    <h3 style="font-size: 0.95rem; margin-bottom: 8px;">Soft Skills</h3>
-                    <div class="tags-container">
-                        <span class="tag tag-green">Leadership</span>
-                        <span class="tag tag-green">Critical thinking</span>
-                        <span class="tag tag-green">Pitching</span>
-                        <span class="tag tag-green">Collaboration</span>
-                    </div>
-
-                    <h3 style="font-size: 0.95rem; margin-bottom: 8px;">Languages</h3>
-                    <div class="tags-container">
-                        <span class="tag tag-pink">Thai (Native)</span>
-                        <span class="tag tag-pink">English (Advanced)</span>
-                    </div>
-                </section>
-
-                <section class="section-card">
-                    <h2 class="section-title"> ความสนใจพิเศษ</h2>
-                    <div class="tags-container">
-                        <span class="tag" style="background-color: #f7d794;">Investment Banking</span>
-                        <span class="tag" style="background-color: #78e08f;">Green-Energy</span>
-                        <span class="tag" style="background-color: #f8a5c2;">Agriculture Innovation</span>
-                        <span class="tag" style="background-color: #63cdda;">Swimming</span>
-                    </div>
-                </section>
-
+            <!-- แท็บที่ 3: Education & Skills -->
+            <div id="education" class="tab-content">
+                <div class="collage-zone">
+                    <!-- 🔴 [ส่วนแก้ไขที่ 4] ภาพแท็บการศึกษา -->
+                    <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=500" alt="Education" class="main-illust">
+                </div>
+                <div class="info-zone">
+                    <div class="profile-title">EDUCATION 🎓</div>
+                    <p class="info-text" style="margin-bottom: 15px;">
+                        • <strong>ม.กาฬสินธุ์:</strong> วศ.บ. คอมพิวเตอร์ (Embedded Systems / Networks)<br>
+                        • <strong>ม.รามคำแหง:</strong> น.บ. นิติศาสตร์ (ประเมินข้อกฎหมายและข้อโต้แย้ง)
+                    </p>
+                    <div class="profile-title">MY SKILLS 🎨</div>
+                    <p class="info-text">
+                        <strong>Hard & IT:</strong> Figma, Data Analysis, Solution Architect<br>
+                        <strong>Soft Skills:</strong> Leadership, Pitching, Critical Thinking
+                    </p>
+                </div>
             </div>
 
         </div>
 
-        <footer>
-            <p> Crafted with Love & Whimsical Art © 2026 Areeya Promkhambut.</p>
-        </footer>
-
     </div>
 
+    <!-- โค้ดสำหรับทำระบบกดสลับแท็บเมนู -->
+    <script>
+        function switchTab(evt, tabName) {
+            // ซ่อนเนื้อหาแท็บทั้งหมดก่อน
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // เอาคลาส active ออกจากปุ่มกดทั้งหมด
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            // แสดงแท็บปัจจุบันที่กด และใส่คลาส active ให้ปุ่มที่คลิก
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
