@@ -15,14 +15,13 @@
             --dark-green: #5c7646;
             --accent-red: #c96552;
             --accent-orange: #e0985c;
-            --dark-blue: #0041c2;
+            --dark-blue: #00124f;
             --text-color: #4a4a4a;
             --window-bg: #fffcf2;
         }
 
         body {
-            /* เปลี่ยนภาพพื้นหลัง (Background) ที่นี่ */
-            /* คุณสามารถใช้ URL รูปภาพจากเว็บ หรือไฟล์ภาพในโฟลเดอร์เดียวกัน เช่น url('bg-pattern.png') */
+            /* 🌟 เปลี่ยนภาพพื้นหลัง (Background) ที่นี่ 🌟 */
             background-color: var(--bg-color);
             background-image: url('my-bg.jpg');
             background-size: cover;
@@ -49,14 +48,12 @@
             position: relative;
         }
 
-        /* คลาสระบบสติ๊กเกอร์ตกแต่ง (Stickers) */
+        /* 🌟 คลาสระบบสติ๊กเกอร์ตกแต่ง (Stickers) 🌟 */
         .sticker {
             position: absolute;
             z-index: 10;
             pointer-events: none;
         }
-        .sticker-1 { top: 20px; right: -20px; width: 60px; transform: rotate(15deg); }
-        .sticker-2 { bottom: 30px; left: -15px; width: 50px; transform: rotate(-10deg); }
 
         /* สติ๊กเกอร์เกาะรอบๆ รูปโปรไฟล์หน้าเรา */
         .sticker-profile-container {
@@ -66,11 +63,11 @@
         .sticker-profile {
             position: absolute;
             z-index: 5;
-            width: 60px; /* ปรับขนาดสติ๊กเกอร์เกาะรูปหน้าตรงนี้ */
+            width: 45px;
             pointer-events: none;
         }
         .sp-top-left { top: -10px; left: -10px; transform: rotate(-15deg); }
-        .sp-bottom-right { bottom: 10px; right: -10px; transform: rotate(-15deg); }
+        .sp-bottom-right { bottom: 10px; right: -10px; transform: rotate(15deg); }
 
         /* สติ๊กเกอร์เกาะบนกล่องเล่นเพลง */
         .music-player-container {
@@ -80,14 +77,14 @@
         .sticker-music {
             position: absolute;
             z-index: 5;
-            width: 70px; /* ปรับขนาดสติ๊กเกอร์เกาะกล่องเพลงตรงนี้ */
+            width: 40px;
             pointer-events: none;
         }
-        .sm-top-right { top: 30px; right: -25px; transform: rotate(-20deg); }
+        .sm-top-right { top: -20px; right: 10px; transform: rotate(10deg); }
 
         /* สติ๊กเกอร์ไอคอนขนาดเล็กแทนอีโมจิ (Mini Icons) */
         .mini-icon {
-            width: 39px;  /* ปรับขนาดสติ๊กเกอร์ไอคอนในข้อความตรงนี้ */
+            width: 32px;
             height: auto;
             vertical-align: middle;
             display: inline-block;
@@ -95,7 +92,7 @@
         }
         
         .badge .mini-icon {
-            width: 20px; /* สติ๊กเกอร์ขนาดจิ๋วพิเศษที่อยู่ในแถบป้ายชื่อ */
+            width: 20px;
             margin-right: 3px;
         }
 
@@ -199,14 +196,16 @@
             text-align: center;
         }
         
-        .right-col {
+        /* 🌟 สร้างกล่องเนื้อหาฝั่งขวาให้มีคุณสมบัติเลื่อน Scroll ได้ 🌟 */
+        .right-col-scroll {
             background: white;
             border: 3px solid var(--main-green);
             border-radius: 15px;
             padding: 20px;
+            max-height: 440px; /* กำหนดความสูงให้พอดีและเลื่อนขึ้นลงได้ */
+            overflow-y: auto;
         }
 
-        /* รูปนักศึกษา (Profile Picture) */
         .profile-pic {
             width: 150px;
             height: 150px;
@@ -240,7 +239,7 @@
             margin: 2px;
         }
 
-        /* เครื่องเล่นเพลง (Music Player) */
+        /* เครื่องเล่นเพลง */
         .music-player {
             background: var(--main-green);
             border: 3px solid var(--dark-green);
@@ -257,6 +256,32 @@
             outline: none;
         }
         
+        /* Photo Dump Layout */
+        .photo-dump-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .dump-item {
+            background: #fff;
+            padding: 6px;
+            border: 2px solid var(--accent-orange);
+            border-radius: 8px;
+            transform: rotate(calc(var(--r, 0) * 1deg));
+            transition: 0.3s;
+        }
+        .dump-item:hover {
+            transform: scale(1.05) rotate(0deg);
+            z-index: 2;
+        }
+        .dump-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
         /* รายการลิงก์โซเชียลมีเดีย */
         .social-links {
             list-style: none;
@@ -296,34 +321,6 @@
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* สไตล์กล่องโพลารอยด์ชิ้นเล็กสำหรับ Photo Dump */
-        .polaroid {
-            background: white;
-            padding: 8px 8px 18px 8px;
-            border: 2px solid var(--main-green);
-            box-shadow: 4px 4px 0px rgba(92, 118, 70, 0.15);
-            width: 110px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        .polaroid:hover {
-            transform: scale(1.05) !important;
-            z-index: 5;
-        }
-        .polaroid img {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            border: 1px solid #eee;
-        }
-        .polaroid span {
-            font-size: 0.75rem;
-            color: var(--dark-green);
-            display: block;
-            margin-top: 5px;
-            font-family: 'Itim', cursive;
-        }
     </style>
 </head>
 <body>
@@ -341,7 +338,7 @@
             </div>
         </div>
 
-        <!-- Navigation Tabs (คลิกเพื่อเปลี่ยนหน้าแบบ Interactive) -->
+        <!-- Navigation Tabs -->
         <div class="tabs">
             <button class="tab-btn active" onclick="openTab('about')">About Me</button>
             <button class="tab-btn" onclick="openTab('resume')">Resume</button>
@@ -354,23 +351,17 @@
             <!-- TAB 1: About Me -->
             <div id="about" class="tab-content active">
                 <div class="profile-layout">
+                    <!-- ฝั่งซ้าย: รูปโปรไฟล์และเครื่องเล่นเพลง (อยู่กับที่) -->
                     <div class="left-col">
-                        
-                        <!-- สติ๊กเกอร์เกาะรอบๆ โปรไฟล์รูปหน้าเรา -->
                         <div class="sticker-profile-container">
-                            <!-- สติ๊กเกอร์เกาะมุมบนซ้าย (เปลี่ยน src เป็นชื่อไฟล์รูปสติ๊กเกอร์ของคุณได้เลยค่ะ) -->
-                            <img src="sticker-apple.png" class="sticker-profile sp-top-left" alt="sticker">
-                            <!-- สติ๊กเกอร์เกาะมุมล่างขวา -->
-                            <img src="sticker-tape.png" class="sticker-profile sp-bottom-right" alt="sticker">
-                            
-                            <!-- รูปนักศึกษาของคุณ -->
+                            <img src="sticker-star.png" class="sticker-profile sp-top-left" alt="sticker">
+                            <img src="sticker-flower.png" class="sticker-profile sp-bottom-right" alt="sticker">
                             <img src="อาริ.jpg" alt="Areeya Photo" class="profile-pic">
                         </div>
                         
                         <h1>Areeya Promkhambut</h1>
                         <p style="font-size: 0.9rem;">นางสาวอารียา พรหมคำบุตร</p>
                         
-                        <!-- เปลี่ยนอีโมจิแถบป้ายตรงนี้เป็นสติ๊กเกอร์ไอคอนขนาดเล็ก -->
                         <span class="badge">
                             <img src="icon-cake.png" class="mini-icon" alt=""> 17 Sep 2006
                         </span>
@@ -378,12 +369,8 @@
                             <img src="icon-com.png" class="mini-icon" alt=""> CPE Student
                         </span>
                         
-                        <!-- สติ๊กเกอร์เกาะบนกล่องเล่นเพลง -->
                         <div class="music-player-container">
-                            <!-- สติ๊กเกอร์เกาะมุมบนขวาของกล่องเพลง -->
-                            <img src="sticker-bird.png" class="sticker-music sm-top-right" alt="sticker">
-                            
-                            <!-- ตัวกล่องเครื่องเล่นเพลงหน้าเว็บ -->
+                            <img src="sticker-cat.png" class="sticker-music sm-top-right" alt="sticker">
                             <div class="music-player">
                                 <div>Play: <span>Stardew Valley OST - Cloud Country</span></div>
                                 <audio controls loop>
@@ -392,99 +379,78 @@
                                 </audio>
                             </div>
                         </div>
-
                     </div>
                     
-                    <div class="right-col">
+                    <!-- 🌟 ฝั่งขวา: รายละเอียดต่างๆ ที่สามารถเลื่อน Scroll ได้ 🌟 -->
+                    <div class="right-col-scroll">
                         <h2>✧ About Me ✧</h2>
-                        <p><strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ ประธานรุ่นปีที่ 11 มีความสนใจหลักในด้านสิ่งแวดล้อมรวมถึงระบบสมองกลและเครือข่ายคอมพิวเตอร์</p>
+                        <p>สวัสดีค่ะ! ฉันชื่อ <strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ มีความสนใจในด้านระบบสมองกลฝังตัวและเครือข่ายคอมพิวเตอร์ค่ะ</p>
+                        <p>นอกจากนี้ยังกำลังศึกษาต่อในระดับปริญญาตรี คณะนิติศาสตร์ มหาวิทยาลัยรามคำแหง ควบคู่ไปด้วยเพื่อพัฒนาทักษะการประเมินประเด็นทางกฎหมายและการสร้างข้อโต้แย้งที่มีหลักฐานอ้างอิงอย่างเป็นระบบค่ะ</p>
                         
                         <h2>✧ My Interests ✧</h2>
-                        <p><span class="badge" style="background:var(--dark-blue)">Investment Banking</span>
-                        <span class="badge" style="background:var(--dark-blue)">Aerospace</span>
-                        <span class="badge" style="background:var(--dark-blue)">Swimming</span>
-                        <span class="badge" style="background:var(--dark-green)">Green-Energy</span>
-                        <span class="badge" style="background:var(--dark-green)">Sustainable Engineering</span>
-                        <span class="badge" style="background:var(--accent-orange)">Cooking</span>
-                        <span class="badge" style="background:var(--accent-orange)">Reading</span>
-                        <span class="badge" style="background:var(--accent-red)">Cozy Gaming</span>
-                        <span class="badge" style="background:var(--accent-red)">Creative Expression</span></p>
-                        
-                        <!-- เพิ่มโซน Photo Dump ตรงนี้ -->
+                        <p>
+                            <span class="badge" style="background:var(--dark-blue)">Investment Banking</span>
+                            <span class="badge" style="background:var(--dark-blue)">Aerospace</span>
+                            <span class="badge" style="background:var(--dark-blue)">Swimming</span>
+                            <span class="badge" style="background:var(--dark-green)">Green-Energy</span>
+                            <span class="badge" style="background:var(--dark-green)">Sustainable Engineering</span>
+                            <span class="badge" style="background:var(--accent-orange)">Cooking</span>
+                            <span class="badge" style="background:var(--accent-red)">Creative Expression</span>
+                        </p>
+
+                        <!-- 🌟 โซนสำหรับวาง Photo Dump / รูปภาพตกแต่งเพิ่มเติมเลื่อนได้ 🌟 -->
                         <h2>✧ Photo Dump ✧</h2>
-                        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; background: #faf6eb; padding: 15px; border-radius: 10px; border: 2px dashed #d1c7a5;">
-                            
-                            <!-- รูปที่ 1 เอียงซ้ายนิดๆ -->
-                            <div class="polaroid" style="transform: rotate(-4deg);">
-                                <img src="photo1.jpg" alt="My Life 1">
-                                <span>Speaker</span>
-                            </div>
-
-                            <!-- รูปที่ 2 เอียงขวานิดๆ มีสติกเกอร์เทปแปะหัวรูปด้วยเพื่อความกิ๊บเก๋ -->
-                            <div class="polaroid" style="transform: rotate(3deg); position: relative;">
-                                <img src="photo2.jpg" alt="My Life 2">
-                                <span>Social Innovator</span>
-                            </div>
-
-                            <!-- รูปที่ 3 เอียงซ้ายหน่อยๆ -->
-                            <div class="polaroid" style="transform: rotate(-2deg);">
-                                <img src="photo3.jpg" alt="My Life 3">
-                                <span>Hackathon Winner!</span>
-                            </div>
-
+                        <div class="photo-dump-grid">
+                            <!-- คุณสามารถแก้ไขชื่อไฟล์รูปภาพในเครื่องของคุณตรง src="dump1.jpg" ได้เลยค่ะ -->
+                            <div class="dump-item" style="--r: -3"><img src="dump1.jpg" alt="photo"></div>
+                            <div class="dump-item" style="--r: 4"><img src="dump2.jpg" alt="photo"></div>
+                            <div class="dump-item" style="--r: -2"><img src="dump3.jpg" alt="photo"></div>
+                            <div class="dump-item" style="--r: 5"><img src="dump4.jpg" alt="photo"></div>
                         </div>
-                        <!-- จบโซน Photo Dump -->
                     </div>
                 </div>
             </div>
 
             <!-- TAB 2: Resume / Experience -->
             <div id="resume" class="tab-content">
-                <div style="background: white; border: 3px solid var(--main-green); border-radius: 15px; padding: 20px; max-height: 400px; overflow-y: auto;">
-                    
+                <div style="background: white; border: 3px solid var(--main-green); border-radius: 15px; padding: 20px; max-height: 440px; overflow-y: auto;">
                     <h2><img src="icon-star-title.png" class="mini-icon" alt=""> Experience & Activities</h2>
                     
                     <div class="resume-item">
                         <div class="resume-title">Project Manager & UX/UI Developer</div>
                         <div class="resume-date">Nov 2025 - Present</div>
-                        <p><strong>TrueLens | Social Innovation Project:</strong> ได้งบประมาณ 20,000 บาทจากทาง สสส. เพื่อนำแนวคิด AI ที่เน้นมนุษย์เป็นศูนย์กลาง ไปพัฒนาต้นแบบ LINE chatbot เพื่อต่อต้านข้อมูลเท็จ deepfakes เพื่อการส่งเสริมความตระหนักรู้ทางด้านเทคโนโลยีในระยะยาวอย่างยั่งยืน ผ่านการออกแบบพฤติกรรมในโครงการ Rookie Innovator Program SS3 ที่ SYSI</p>
+                        <p><strong>"ตะครุบ AI" Social Innovation Project:</strong> ผู้นำแนวคิด AI ที่เน้นมนุษย์เป็นศูนย์กลาง ต้นแบบ LINE chatbot เพื่อต่อต้านข้อมูลเท็จ deepfake ผ่านการออกแบบพฤติกรรมในโครงการ Rookie Innovator Program SS3 ที่ SYSI</p>
                     </div>
 
                     <div class="resume-item">
                         <div class="resume-title">Project Manager and Financial Operation</div>
-                        <div class="resume-date">May 2026 - Present</div>
-                        <p><strong>Youth Voice for Eco-Law Forum:</strong> เป็นผู้นำ NGO อิสระชื่อ Saphap.Thailand ภายใต้ทุนของเครือข่าย Ashoka NextGen Changemakers ในการจัดเวทีคัดเลือกและรวบรวมเยาวชนอายุ 15-25 ปี เข้าสู่รัฐสภาเพื่อร่วมออกแบบกฎหมายสิ่งแวดล้อมเชิงปฏิบัติ</p>
+                        <div class="resume-date">Present</div>
+                        <p><strong>Youth Voice for Eco-Law Forum:</strong> เป็นผู้นำ NGO อิสระชื่อ "Saphap. Thailand" ภายใต้ทุน Ashoka NextGen จัดเวทีเยาวชนที่รัฐสภาเพื่อร่วมออกแบบกฎหมายสิ่งแวดล้อมเชิงปฏิบัติ</p>
                     </div>
 
                     <div class="resume-item">
-                        <div class="resume-title">Active Thailand's Environmental Contributor</div>
-                        <div class="resume-date">Dec 2025 - May 2026</div>
-                        <p><strong>Ashoka NextGen Changemakers:</strong> ผลักดันประเด็นปัญหาเรื่องสิ่งแวดล้อมในประเทศไทย และเจาะลึกไปทางด้านการอนุรักษ์สิ่งแวดล้อมที่ถูกมองข้ามและการให้ความรู้กว่ากับความสำคัญของพื้นที่ชุ่มน้ำ</p>
-                    </div>
-                    <div class="resume-item">
-                        <div class="resume-title">President of the English Club</div>
-                        <div class="resume-date">2020 - 2021</div>
-                        <p><strong>President of the English Club at St.Mary:</strong> วางแผนและดำเนินการกิจกรรมชมรม รวมถึงการแข่งขันและกิจกรรมกลุ่มต่าง ๆ เพื่อส่งเสริมการมีส่วนร่วมของสมาชิกและรักษาระดับการเข้าร่วมกิจกรรมอย่างต่อเนื่องตลอดระยะเวลา 1 ปี</p>
+                        <div class="resume-title">Active Contributor</div>
+                        <div class="resume-date">Dec 2025 - Present</div>
+                        <p><strong>Ashoka NextGen Changemakers:</strong> ผลักดันประเด็นปัญหาสภาพภูมิอากาศของไทยผ่านนโยบายสภาพภูมิอากาศแบบมีส่วนร่วมและเวิร์กชอปการคิดเชิงระบบ</p>
                     </div>
 
                     <h2><img src="icon-trophy.png" class="mini-icon" alt=""> Honors & Awards</h2>
                     <div class="resume-item">
-                        <div class="resume-title">Winner | Policy Analyst</div>
+                        <div class="resume-title">Winner, Policy Analyst</div>
                         <div class="resume-date">Nov 2025</div>
                         <p><strong>Thammasat Youth Deliberation Hackathon:</strong> วิเคราะห์ช่องว่างในการเข้าถึงบำนาญและค่าครองชีพเพื่อเสนอมาตรการแทรกแซงเชิงนโยบายที่ขยายผลได้สำหรับผู้สูงอายุ</p>
                     </div>
                     <div class="resume-item">
-                        <div class="resume-title">Finalist Policy Drafter | Strategic Planner</div>
+                        <div class="resume-title">Finalist Policy Drafter, Strategic Planner</div>
                         <div class="resume-date">July 2025</div>
-                        <p><strong>Environmental PolicyFest Hackathon (GYBN):</strong> ออกแบบคอนเซปต์บนเว็บที่ส่งเสริมการประหยัดไฟฟ้าผ่านพฤติกรรมของผู้คนในประเทศไทย</p>
+                        <p><strong>Environmental PolicyFest Hackathon (GYBN):</strong> ออกแบบคอนเซปต์บนเว็บที่ส่งเสริมการประหยัดไฟฟ้าผ่านพฤติกรรมสะกิด</p>
                     </div>
                     
                     <h2><img src="icon-book.png" class="mini-icon" alt=""> Education</h2>
                     <ul>
-                        <li><strong>Kalasin University | Kalasin:</strong> Bachelor of Computer Engineering (June 2026 - Present)</li>
-                        <li><strong>SWU Demonstration School Prasarnmit | Bangkok:</strong> English-ASEAN Program (April 2022 - April 2023)</li>
-                        <li><strong>St.Mary's School | Udon Thani:</strong> IEP Program (2019 - 2022)</li>
-                        <li><strong>St.Joseph's School | Kalasin:</strong> Grade 1 - 3 (2013 - 2016)</li>
+                        <li><strong>Kalasin University:</strong> Bachelor of Computer Engineering (June 2026 - Present)</li>
+                        <li><strong>Ramkhamhaeng University:</strong> Bachelor of Law (June 2025 - Present)</li>
+                        <li><strong>Srinakharinwirot University Demonstration School Prasarnmit:</strong> (April 2022 - April 2023)</li>
                     </ul>
                 </div>
             </div>
