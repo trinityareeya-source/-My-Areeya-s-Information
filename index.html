@@ -296,6 +296,34 @@
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* สไตล์กล่องโพลารอยด์ชิ้นเล็กสำหรับ Photo Dump */
+        .polaroid {
+            background: white;
+            padding: 8px 8px 18px 8px;
+            border: 2px solid var(--main-green);
+            box-shadow: 4px 4px 0px rgba(92, 118, 70, 0.15);
+            width: 110px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .polaroid:hover {
+            transform: scale(1.05) !important;
+            z-index: 5;
+        }
+        .polaroid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+        .polaroid span {
+            font-size: 0.75rem;
+            color: var(--dark-green);
+            display: block;
+            margin-top: 5px;
+            font-family: 'Itim', cursive;
+        }
     </style>
 </head>
 <body>
@@ -370,6 +398,7 @@
                     <div class="right-col">
                         <h2>✧ About Me ✧</h2>
                         <p><strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ ประธานรุ่นปีที่ 11 มีความสนใจหลักในด้านสิ่งแวดล้อมรวมถึงระบบสมองกลและเครือข่ายคอมพิวเตอร์</p>
+                        
                         <h2>✧ My Interests ✧</h2>
                         <p><span class="badge" style="background:var(--dark-blue)">Investment Banking</span>
                         <span class="badge" style="background:var(--dark-blue)">Aerospace</span>
@@ -380,31 +409,32 @@
                         <span class="badge" style="background:var(--accent-orange)">Reading</span>
                         <span class="badge" style="background:var(--accent-red)">Cozy Gaming</span>
                         <span class="badge" style="background:var(--accent-red)">Creative Expression</span></p>
-
-                        <!-- [เพิ่มใหม่] โซนกรอบคติประจำใจสไตล์การ์ดโน้ต -->
-                        <div style="margin-top: 25px; padding: 12px; background: #fffcf2; border: 2px dashed var(--accent-orange); border-radius: 10px; position: relative;">
-                            <img src="sticker-tape.png" style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-2deg); width: 60px; opacity: 0.8;" alt="">
-                            <p style="margin: 5px 0 0 0; font-family: 'Itim', cursive; text-align: center; color: var(--dark-green); font-size: 1.05rem;">
-                                <i class="fas fa-quote-left" style="color: var(--accent-red); font-size: 0.8rem; margin-right: 5px;"></i>
-                                Planting seeds today, engineering a greener tomorrow.
-                                <i class="fas fa-quote-right" style="color: var(--accent-red); font-size: 0.8rem; margin-left: 5px;"></i>
-                            </p>
-                        </div>
-
-                        <!-- [เพิ่มใหม่] โซนแกลเลอรี่โพลารอยด์จิ๋ว -->
-                        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
-                            <!-- โพลารอยด์ใบที่ 1 (งานอดิเรก/สิ่งแวดล้อม) -->
-                            <div style="background: white; padding: 8px 8px 18px 8px; border: 2px solid var(--main-green); box-shadow: 4px 4px 0px rgba(0,0,0,0.05); transform: rotate(-3deg); width: 105px; text-align: center;">
-                                <img src="eco-hobby.jpg" alt="Eco" style="width: 100%; height: 95px; object-fit: cover; border: 1px solid #eee;">
-                                <span style="font-size: 0.75rem; color: var(--dark-green); display: block; margin-top: 5px; font-weight: bold;">🌱 Eco Life</span>
+                        
+                        <!-- เพิ่มโซน Photo Dump ตรงนี้ -->
+                        <h2>✧ Photo Dump ✧</h2>
+                        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; background: #faf6eb; padding: 15px; border-radius: 10px; border: 2px dashed #d1c7a5;">
+                            
+                            <!-- รูปที่ 1 เอียงซ้ายนิดๆ -->
+                            <div class="polaroid" style="transform: rotate(-4deg);">
+                                <img src="photo1.jpg" alt="My Life 1">
+                                <span>🌳 Nature</span>
                             </div>
-                            <!-- โพลารอยด์ใบที่ 2 (การเรียน/โค้ดดิ้ง) -->
-                            <div style="background: white; padding: 8px 8px 18px 8px; border: 2px solid var(--main-green); box-shadow: 4px 4px 0px rgba(0,0,0,0.05); transform: rotate(4deg); width: 105px; text-align: center;">
-                                <img src="cpe-code.jpg" alt="CPE" style="width: 100%; height: 95px; object-fit: cover; border: 1px solid #eee;">
-                                <span style="font-size: 0.75rem; color: var(--dark-green); display: block; margin-top: 5px; font-weight: bold;">💻 Coding</span>
-                            </div>
-                        </div>
 
+                            <!-- รูปที่ 2 เอียงขวานิดๆ มีสติกเกอร์เทปแปะหัวรูปด้วยเพื่อความกิ๊บเก๋ -->
+                            <div class="polaroid" style="transform: rotate(3deg); position: relative;">
+                                <img src="sticker-tape.png" style="position: absolute; top: -8px; left: 35%; width: 40px; height: auto; border: none; transform: rotate(-5deg); z-index: 2; opacity: 0.8;" alt="">
+                                <img src="photo2.jpg" alt="My Life 2">
+                                <span>💻 Coding</span>
+                            </div>
+
+                            <!-- รูปที่ 3 เอียงซ้ายหน่อยๆ -->
+                            <div class="polaroid" style="transform: rotate(-2deg);">
+                                <img src="photo3.jpg" alt="My Life 3">
+                                <span>✨ Happy Day</span>
+                            </div>
+
+                        </div>
+                        <!-- จบโซน Photo Dump -->
                     </div>
                 </div>
             </div>
@@ -413,7 +443,6 @@
             <div id="resume" class="tab-content">
                 <div style="background: white; border: 3px solid var(--main-green); border-radius: 15px; padding: 20px; max-height: 400px; overflow-y: auto;">
                     
-                    <!-- เปลี่ยนอีโมจิหัวข้อตรงนี้เป็นสติ๊กเกอร์ไอคอนขนาดเล็ก -->
                     <h2><img src="icon-star-title.png" class="mini-icon" alt=""> Experience & Activities</h2>
                     
                     <div class="resume-item">
@@ -439,7 +468,6 @@
                         <p><strong>President of the English Club at St.Mary:</strong> วางแผนและดำเนินการกิจกรรมชมรม รวมถึงการแข่งขันและกิจกรรมกลุ่มต่าง ๆ เพื่อส่งเสริมการมีส่วนร่วมของสมาชิกและรักษาระดับการเข้าร่วมกิจกรรมอย่างต่อเนื่องตลอดระยะเวลา 1 ปี</p>
                     </div>
 
-                    <!-- เปลี่ยนอีโมจิหัวข้อตรงนี้เป็นสติ๊กเกอร์ไอคอนขนาดเล็ก -->
                     <h2><img src="icon-trophy.png" class="mini-icon" alt=""> Honors & Awards</h2>
                     <div class="resume-item">
                         <div class="resume-title">Winner | Policy Analyst</div>
@@ -452,7 +480,6 @@
                         <p><strong>Environmental PolicyFest Hackathon (GYBN):</strong> ออกแบบคอนเซปต์บนเว็บที่ส่งเสริมการประหยัดไฟฟ้าผ่านพฤติกรรมของผู้คนในประเทศไทย</p>
                     </div>
                     
-                    <!-- เปลี่ยนอีโมจิหัวข้อตรงนี้เป็นสติ๊กเกอร์ไอคอนขนาดเล็ก -->
                     <h2><img src="icon-book.png" class="mini-icon" alt=""> Education</h2>
                     <ul>
                         <li><strong>Kalasin University | Kalasin:</strong> Bachelor of Computer Engineering (June 2026 - Present)</li>
