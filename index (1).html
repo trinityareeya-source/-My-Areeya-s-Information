@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Areeya's Profile 🌻</title>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f4e8c1;
+            --main-green: #89a76d;
+            --dark-green: #5c7646;
+            --accent-red: #c96552;
+            --accent-orange: #e0985c;
+            --text-color: #4a4a4a;
+            --window-bg: #fffcf2;
+        }
+
+        body {
+            /* 🌟 เปลี่ยนภาพพื้นหลัง (Background) ที่นี่ 🌟 */
+            /* คุณสามารถใช้ URL รูปภาพจากเว็บ หรือไฟล์ภาพในโฟลเดอร์เดียวกัน เช่น url('bg-pattern.png') */
+            background-color: var(--bg-color);
+            background-image: url('https://www.transparenttextures.com/patterns/floral-texture.png'); /* ลายดอกไม้แบบ retro */
+            font-family: 'Mali', cursive;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--window-bg);
+            border: 4px solid var(--dark-green);
+            border-radius: 15px;
+            box-shadow: 8px 8px 0px rgba(92, 118, 70, 0.4);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 🌟 สติ๊กเกอร์ตกแต่ง (Stickers) 🌟 */
+        .sticker {
+            position: absolute;
+            z-index: 10;
+            pointer-events: none;
+            /* เพิ่มสติ๊กเกอร์โดยการเปลี่ยน src ในแท็ก <img> ด้านล่าง */
+        }
+        .sticker-1 { top: 20px; right: -20px; width: 60px; transform: rotate(15deg); }
+        .sticker-2 { bottom: 30px; left: -15px; width: 50px; transform: rotate(-10deg); }
+
+        /* Window Header */
+        .window-header {
+            background-color: var(--main-green);
+            border-bottom: 4px solid var(--dark-green);
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            font-family: 'Itim', cursive;
+            font-size: 1.1rem;
+        }
+        
+        .window-controls span {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 5px;
+            border: 2px solid var(--dark-green);
+        }
+        .btn-close { background-color: var(--accent-red); }
+        .btn-min { background-color: var(--accent-orange); }
+        .btn-max { background-color: #f4e8c1; }
+
+        .url-bar {
+            background: white;
+            border: 2px solid var(--dark-green);
+            border-radius: 20px;
+            padding: 2px 15px;
+            flex-grow: 1;
+            margin: 0 15px;
+            color: var(--dark-green);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: #e9e0c5;
+            border-bottom: 4px solid var(--dark-green);
+            padding: 10px 10px 0 10px;
+            gap: 10px;
+        }
+        .tab-btn {
+            background: var(--window-bg);
+            border: 3px solid var(--dark-green);
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            padding: 8px 20px;
+            font-family: 'Itim', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: var(--dark-green);
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            background: var(--accent-red);
+            color: white;
+            transform: translateY(2px);
+        }
+        .tab-btn:hover:not(.active) {
+            background: #fff;
+        }
+
+        /* Content Area */
+        .content-area {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .tab-content {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Profile Layout */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+        @media(max-width: 768px) {
+            .profile-layout { grid-template-columns: 1fr; }
+        }
+
+        .left-col {
+            background: #f9f5e3;
+            border: 3px dashed var(--accent-orange);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .right-col {
+            background: white;
+            border: 3px solid var(--main-green);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        /* 🌟 รูปนักศึกษา (Profile Picture) 🌟 */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 4px solid var(--accent-red);
+            border-radius: 50%;
+            margin-bottom: 15px;
+            background-color: white;
+            /* ใส่รูปนักศึกษาของคุณโดยเอาไฟล์มาไว้ในโฟลเดอร์เดียวกับโค้ด แล้วแก้ src ด้านล่าง */
+        }
+
+        h1 {
+            color: var(--accent-red);
+            font-family: 'Itim', cursive;
+            margin: 0 0 5px 0;
+            font-size: 1.8rem;
+        }
+        h2 {
+            color: var(--dark-green);
+            font-family: 'Itim', cursive;
+            margin: 15px 0 10px 0;
+            border-bottom: 2px dashed var(--main-green);
+            display: inline-block;
+        }
+        
+        .badge {
+            background: var(--main-green);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 2px;
+        }
+
+        /* Music Player */
+        .music-player {
+            background: var(--main-green);
+            border: 3px solid var(--dark-green);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 15px;
+            color: white;
+            text-align: center;
+            font-family: 'Itim', cursive;
+        }
+        .music-player audio {
+            width: 100%;
+            height: 30px;
+            margin-top: 5px;
+            outline: none;
+        }
+        
+        /* Links & Socials */
+        .social-links {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        .social-links li {
+            margin-bottom: 10px;
+        }
+        .social-links a {
+            text-decoration: none;
+            color: var(--dark-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            padding: 8px;
+            border: 2px solid var(--main-green);
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+        .social-links a:hover {
+            background: var(--bg-color);
+            transform: scale(1.02);
+        }
+        
+        /* Timeline / Resume items */
+        .resume-item {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent-orange);
+        }
+        .resume-title { font-weight: bold; color: var(--accent-red); }
+        .resume-date { font-size: 0.85rem; color: gray; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- สติ๊กเกอร์ตกแต่ง (เพิ่มไฟล์ภาพสติ๊กเกอร์ของคุณได้ที่นี่) -->
+    <!-- <img src="URL_หรือ_ชื่อไฟล์สติ๊กเกอร์.png" class="sticker sticker-1" alt="sticker"> -->
+
+    <div class="container">
+        <!-- Window Browser Header -->
+        <div class="window-header">
+            <div class="window-controls">
+                <span class="btn-close"></span>
+                <span class="btn-min"></span>
+                <span class="btn-max"></span>
+            </div>
+            <div class="url-bar">
+                <i class="fas fa-lock" style="font-size: 0.8rem;"></i> https://areeya-profile.com
+            </div>
+            <div style="font-size: 1.2rem;">🎀</div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('about')">🌸 About Me</button>
+            <button class="tab-btn" onclick="openTab('resume')">📚 Resume</button>
+            <button class="tab-btn" onclick="openTab('contact')">💌 Contact</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-area">
+            
+            <!-- TAB 1: About Me -->
+            <div id="about" class="tab-content active">
+                <div class="profile-layout">
+                    <div class="left-col">
+                        <!-- 🌟 เปลี่ยนรูปโปรไฟล์ตรงนี้ 🌟 -->
+                        <!-- ใส่ที่อยู่รูปของคุณแทนลิงก์นี้ เช่น src="my-photo.jpg" -->
+                        <img src="https://i.ibb.co/3s6c4Xk/student-placeholder.png" alt="Areeya Photo" class="profile-pic">
+                        
+                        <h1>Areeya P.</h1>
+                        <p style="font-size: 0.9rem;">(อารียา พรหมคำบุตร)</p>
+                        <span class="badge">🎂 17 Sep 2006</span>
+                        <span class="badge">💻 CPE Student</span>
+                        
+                        <!-- 🌟 เครื่องเล่นเพลง (Music Player) 🌟 -->
+                        <div class="music-player">
+                            <div>🎵 Now Playing: <span>Your Song</span></div>
+                            <!-- ใส่ลิงก์เพลง MP3 ของคุณในช่อง src ด้านล่าง -->
+                            <audio controls loop>
+                                <source src="YOUR_MUSIC_FILE.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                    
+                    <div class="right-col">
+                        <h2>✧ About Me ✧</h2>
+                        <p>สวัสดีค่ะ! ฉันชื่อ <strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ (Bachelor of Computer Engineering) มีความสนใจในด้านระบบสมองกลฝังตัวและเครือข่ายคอมพิวเตอร์</p>
+                        <p>นอกจากนี้ยังกำลังศึกษาต่อในระดับปริญญาตรี คณะนิติศาสตร์ มหาวิทยาลัยรามคำแหง เพื่อพัฒนาทักษะการประเมินประเด็นทางกฎหมายและการสร้างข้อโต้แย้งที่มีหลักฐานอ้างอิงค่ะ</p>
+                        
+                        <h2>✧ My Interests ✧</h2>
+                        <span class="badge" style="background:var(--accent-red)">Investment Banking</span>
+                        <span class="badge" style="background:var(--accent-orange)">Green-Energy</span>
+                        <span class="badge" style="background:var(--dark-green)">Agriculture Innovation</span>
+                        <span class="badge" style="background:var(--accent-red)">Swimming</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Resume / Experience -->
+            <div id="resume" class="tab-content">
+                <div style="background: white; border: 3px solid var(--main-green); border-radius: 15px; padding: 20px; max-height: 400px; overflow-y: auto;">
+                    <h2>🌟 Experience & Activities</h2>
+                    
+                    <div class="resume-item">
+                        <div class="resume-title">Project Manager & UX/UI Developer</div>
+                        <div class="resume-date">Nov 2025 - Present</div>
+                        <p><strong>"ตะครุบ AI" Social Innovation Project:</strong> ผู้นำแนวคิด AI ที่เน้นมนุษย์เป็นศูนย์กลาง (ต้นแบบ LINE chatbot) เพื่อต่อต้านข้อมูลเท็จ deepfake ผ่านการออกแบบพฤติกรรมในโครงการ Rookie Innovator Program SS3 ที่ SYSI</p>
+                    </div>
+
+                    <div class="resume-item">
+                        <div class="resume-title">Project Manager and Financial Operation</div>
+                        <div class="resume-date">Present</div>
+                        <p><strong>Youth Voice for Eco-Law Forum:</strong> เป็นผู้นำ NGO อิสระชื่อ "Saphap. Thailand" ภายใต้ทุน Ashoka NextGen จัดเวทีเยาวชนที่รัฐสภาเพื่อร่วมออกแบบกฎหมายสิ่งแวดล้อมเชิงปฏิบัติ</p>
+                    </div>
+
+                    <div class="resume-item">
+                        <div class="resume-title">Active Contributor</div>
+                        <div class="resume-date">Dec 2025 - Present</div>
+                        <p><strong>Ashoka NextGen Changemakers:</strong> ผลักดันประเด็นปัญหาสภาพภูมิอากาศของไทย (บรรยายภาษาอังกฤษ) ผ่านนโยบายสภาพภูมิอากาศแบบมีส่วนร่วมและเวิร์กชอปการคิดเชิงระบบ</p>
+                    </div>
+
+                    <h2>🏆 Honors & Awards</h2>
+                    <div class="resume-item">
+                        <div class="resume-title">Winner, Policy Analyst</div>
+                        <div class="resume-date">Nov 2025</div>
+                        <p>Thammasat Youth Deliberation Hackathon: วิเคราะห์ช่องว่างในการเข้าถึงบำนาญและค่าครองชีพเพื่อเสนอมาตรการแทรกแซงเชิงนโยบายที่ขยายผลได้</p>
+                    </div>
+                    <div class="resume-item">
+                        <div class="resume-title">Finalist Policy Drafter, Strategic Planner</div>
+                        <div class="resume-date">July 2025</div>
+                        <p>Environmental PolicyFest Hackathon (GYBN): ออกแบบคอนเซปต์บนเว็บที่ส่งเสริมการประหยัดไฟฟ้าผ่านพฤติกรรมสะกิด (behavioral nudges)</p>
+                    </div>
+                    
+                    <h2>🎓 Education</h2>
+                    <ul>
+                        <li><strong>Kalasin University:</strong> Bachelor of Computer Engineering (June 2025 - Present)</li>
+                        <li><strong>Ramkhamhaeng University:</strong> Bachelor of Law (June 2025 - Present)</li>
+                        <li><strong>Srinakharinwirot University Demonstration School Prasarnmit:</strong> (April 2022 - April 2023)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- TAB 3: Contact -->
+            <div id="contact" class="tab-content">
+                <div class="profile-layout">
+                    <div class="left-col">
+                        <img src="https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif" width="100%" style="border-radius:10px; border:2px solid var(--main-green);">
+                    </div>
+                    <div class="right-col">
+                        <h2>✧ Find Me Here! ✧</h2>
+                        <ul class="social-links">
+                            <li>
+                                <a href="https://www.linkedin.com/in/areeya-p-a0947b344" target="_blank">
+                                    <i class="fab fa-linkedin" style="color:#0a66c2; font-size: 1.5rem;"></i>
+                                    LinkedIn: Areeya Promkhambut
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/hehilovefungi" target="_blank">
+                                    <i class="fab fa-instagram" style="color:#e1306c; font-size: 1.5rem;"></i>
+                                    Instagram: @hehilovefungi
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/share/17gejaoYs2" target="_blank">
+                                    <i class="fab fa-facebook" style="color:#1877f2; font-size: 1.5rem;"></i>
+                                    Facebook: Areeya P.
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-line" style="color:#00c300; font-size: 1.5rem;"></i>
+                                    LINE ID: kikiarii
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:trinityareeya@gmail.com">
+                                    <i class="fas fa-envelope" style="color:#ea4335; font-size: 1.5rem;"></i>
+                                    trinityareeya@gmail.com
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script สำหรับการสลับ Tab -->
+    <script>
+        function openTab(tabName) {
+            // ซ่อนเนื้อหาทั้งหมด
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            // เอาสีปุ่มที่ถูกเลือกออก
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            // โชว์ tab ที่กด และเปลี่ยนสีปุ่ม
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
