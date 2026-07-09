@@ -120,7 +120,6 @@
         /* คลาสตอนกดแผ่นค้างไว้ (เอฟเฟกต์หยุดหมุน/อื้ดๆ) */
         .vinyl-disk.scratching {
             animation-play-state: paused;
-            transform: scale(5);
         }
 
         .vinyl-needle {
@@ -136,7 +135,7 @@
             pointer-events: none;
         }
         .vinyl-needle.playing {
-            transform: rotate(45eg); /* ขยับหัวเข็มไปวางบนแผ่น */
+            transform: rotate(45deg); /* แก้ไขจาก 45eg เป็น 45deg เพื่อให้เข็มขยับ */
         }
 
         @keyframes rotateVinyl {
@@ -427,7 +426,8 @@
                             </div>
                             
                             <div class="vinyl-wrapper">
-                                <img src="vinyl-needle.png" id="vinyl Needle" class="vinyl-needle" alt="needle">
+                                <!-- แก้ไข id จาก "vinyl Needle" เป็น "vinylNeedle" เพื่อให้เชื่อมกับ JavaScript ได้ถูกต้อง -->
+                                <img src="vinyl-needle.png" id="vinylNeedle" class="vinyl-needle" alt="needle">
                                 <div id="vinylDisk" class="vinyl-disk"></div>
                             </div>
 
@@ -605,7 +605,7 @@
             img.src = randomSrc;
             img.classList.add('mouse-sparkle');
             
-            // กำหนดตำแหน่งให้ออกมาจากปลายเมาส์พอดี
+            // 定位ให้ออกมาจากปลายเมาส์พอดี
             img.style.left = (e.clientX - 9) + 'px';
             img.style.top = (e.clientY - 9) + 'px';
             
@@ -631,7 +631,7 @@
             if (e.detail > 1) return; 
 
             if (!isPlaying) {
-                bgMusic.play();
+                bgMusic.play().catch(err => console.log("Audio play interaction failed:", err));
                 vinylDisk.classList.add('playing');
                 vinylNeedle.classList.add('playing');
                 musicStatus.innerText = "Now Playing...";
@@ -649,7 +649,7 @@
         vinylDisk.addEventListener('mousedown', function() {
             if (isPlaying) {
                 vinylDisk.classList.add('scratching');
-                // จำลองความเร็วแผ่นสแครชหน่วงๆ ต่ำสุด (0.1 คือเสียงอื้ดยืดแบบสโลว์โมชั่นมาก)
+                // จำลองความเร็วแผ่นสแครชหน่วงๆ ต่ำสุด (0.2 คือเสียงอื้ดยืดแบบสโลว์โมชั่นมาก)
                 bgMusic.playbackRate = 0.2; 
                 musicStatus.innerText = "Scratching... ⚡";
             }
