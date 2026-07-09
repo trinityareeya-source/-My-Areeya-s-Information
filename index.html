@@ -16,10 +16,22 @@
             --dark-blue: #0047AB;
             --text-color: #4a4a4a;
             --window-bg: #fffcf2;
+            
+            /* กำหนดรูปภาพของ Cursor ไม้กายสิทธิ์ตรงนี้ (ใส่เลข 0 0 ด้านหลังเพื่อล็อกจุดคลิกให้อยู่ที่ปลายไม้) */
+            --cursor-normal: url('wand-normal.png') 0 0, auto;
+            --cursor-click: url('wand-click.png') 0 0, auto;
         }
 
-        /* [NEW] ตั้งค่า Cursor เป็นไม้กายสิทธิ์ (แก้ชื่อไฟล์รูปได้ที่นี่) */
-        body, html {
+        /* ตั้งค่า Cursor ทั่วทั้งหน้าเว็บ */
+        html, body, button, a, .tab-btn, .vinyl-disk {
+            cursor: var(--cursor-normal);
+        }
+        /* เมื่อกดคลิกค้างไว้ ให้เปลี่ยนรูป Cursor */
+        html:active, body:active, button:active, a:active, .tab-btn:active, .vinyl-disk:active {
+            cursor: var(--cursor-click);
+        }
+
+        body {
             background-color: var(--bg-color);
             background-image: url('my-bg.jpg');
             background-size: cover;
@@ -33,31 +45,7 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            cursor: url('magic-wand.png') 0 0, auto; /* ใส่ภาพไม้กายสิทธิ์ตรงนี้ */
-        }
-
-        /* [NEW] บังคับให้ปุ่มต่างๆ ยังคงใช้ Cursor ไม้กายสิทธิ์ */
-        button, a, input, [role="button"], .vinyl-disk {
-            cursor: url('magic-wand.png') 0 0, pointer !important;
-        }
-
-        /* [NEW] สไตล์สำหรับเม็ดดาว/สติ๊กเกอร์ที่หลุดออกจากเมาส์ */
-        .cursor-sparkle {
-            position: fixed;
-            width: 15px;
-            height: 15px;
-            pointer-events: none;
-            z-index: 9999;
-            background-image: url('star-sparkle.png'); /* เปลี่ยนเป็นสติ๊กเกอร์เล็กๆ ที่ต้องการได้ */
-            background-size: contain;
-            background-repeat: no-repeat;
-            transform: translate(-50%, -50%);
-            animation: fadeOutSparkle 0.8s forwards ease-out;
-        }
-
-        @keyframes fadeOutSparkle {
-            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
-            100% { transform: translate(-50%, calc(-50% + 30px)) scale(0) rotate(180deg); opacity: 0; }
+            overflow-x: hidden; /* ป้องกันประกายเมาส์ทำหน้าจอขยายออก */
         }
 
         .container {
@@ -90,67 +78,100 @@
         .sp-top-left { top: -17px; left: -16px; transform: rotate(20deg); }
         .sp-bottom-right { bottom: 10px; right: -10px; transform: rotate(-15deg); }
 
+        /* --- สไตล์ใหม่สำหรับเครื่องเล่นแผ่นไวนิล Interactive --- */
         .music-player-container {
             position: relative;
             margin-top: 15px;
-        }
-        .sticker-music {
-            position: absolute;
-            z-index: 5;
-            width: 70px;
-            pointer-events: none;
-        }
-        .sm-top-right { top: -35px; right: -25px; transform: rotate(-15deg); }
-
-        /* [NEW] สไตล์เครื่องเล่นแผ่นไวนิลสุด Cute */
-        .vinyl-container {
-            background: #e9e0c5;
+            background: var(--main-green);
             border: 3px solid var(--dark-green);
             border-radius: 15px;
             padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            color: white;
+            text-align: center;
+            font-family: 'Itim', cursive;
+            overflow: hidden;
         }
-
+        
         .vinyl-wrapper {
             position: relative;
-            width: 120px;
-            height: 120px;
-            user-select: none;
+            width: 130px;
+            height: 130px;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .vinyl-disk {
-            width: 100%;
-            height: 100%;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background-image: url('my-vinyl.png'); /* เปลี่ยนเป็นภาพวาดนิ่งไวนิลของคุณอารียา */
+            background-image: url('vinyl-disk.png'); /* เปลี่ยนเป็นรูปวาดแผ่นไวนิลของคุณเองได้ */
             background-size: cover;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background-position: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             transition: transform 0.1s linear;
         }
 
-        /* คลาสสิกสำหรับการหมุนตอนเล่นเพลง */
+        /* คลาสสำหรับการหมุนเล่นเพลง */
         .vinyl-disk.playing {
-            animation: spin 3s linear infinite;
+            animation: rotateVinyl 3s linear infinite;
+        }
+        /* คลาสตอนกดแผ่นค้างไว้ (เอฟเฟกต์หยุดหมุน/อื้ดๆ) */
+        .vinyl-disk.scratching {
+            animation-play-state: paused;
+            transform: scale(0.98);
         }
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-
-        /* รูตรงกลางแผ่นไวนิลเพิ่มความสมจริง */
-        .vinyl-wrapper::after {
-            content: '';
+        .vinyl-needle {
             position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 12px; height: 12px;
-            background: var(--window-bg);
-            border-radius: 50%;
-            border: 2px solid var(--dark-green);
+            top: -5px;
+            right: 5px;
+            width: 40px;
+            height: auto;
+            z-index: 6;
+            transform-origin: top right;
+            transform: rotate(-15deg);
+            transition: transform 0.5s ease;
+            pointer-events: none;
+        }
+        .vinyl-needle.playing {
+            transform: rotate(12deg); /* ขยับหัวเข็มไปวางบนแผ่น */
+        }
+
+        @keyframes rotateVinyl {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .sticker-music {
+            position: absolute;
+            z-index: 5;
+            width: 60px;
+            pointer-events: none;
+        }
+        .sm-top-right { top: -15px; right: -15px; transform: rotate(-15deg); }
+
+        /* --- สไตล์สำหรับเม็ดประกายที่จะหล่นลงมาจากเมาส์ --- */
+        .mouse-sparkle {
+            position: fixed;
+            width: 18px; /* ขนาดประกายเม็ดเล็กๆ */
+            height: 18px;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fallAndFade 0.8s forwards ease-out;
+        }
+
+        @keyframes fallAndFade {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(40px) scale(0.3) rotate(180deg);
+                opacity: 0;
+            }
         }
 
         .mini-icon {
@@ -368,7 +389,7 @@
 </head>
 <body>
 
-    <audio id="tab-sound" src="click-sound.mp3" preload="auto"></audio>
+    <audio id="tabSound" src="tab-click-sound.mp3" preload="auto"></audio>
 
     <div class="container">
         <div class="window-header">
@@ -411,18 +432,23 @@
                         
                         <div class="music-player-container">
                             <img src="sticker-bird.png" class="sticker-music sm-top-right" alt="sticker">
-                            <div class="vinyl-container">
-                                <div style="font-family: 'Itim'; font-size:0.9rem; color:var(--dark-green);">
-                                    <span>Cloud Country</span>
-                                </div>
-                                <div class="vinyl-wrapper">
-                                    <div class="vinyl-disk" id="vinylDisk"></div>
-                                </div>
-                                <audio id="bgMusic" loop>
-                                    <source src="YOUR_MUSIC_FILE.mp3" type="audio/mpeg">
-                                </audio>
-                                <button id="playBtn" style="background:var(--main-green); border:2px solid var(--dark-green); color:white; border-radius:10px; padding:2px 12px; font-family:'Itim'; font-size:0.85rem;">PLAY</button>
+                            <div style="font-size: 0.95rem; margin-bottom: 5px;">
+                                💿 <span id="music-status">Click Vinyl to Play!</span>
                             </div>
+                            
+                            <div class="vinyl-wrapper">
+                                <img src="vinyl-needle.png" id="vinyl Needle" class="vinyl-needle" alt="needle">
+                                <div id="vinylDisk" class="vinyl-disk"></div>
+                            </div>
+
+                            <div style="font-size: 0.8rem; opacity: 0.9; margin-top: 5px;">
+                                Track: Stardew Valley OST
+                            </div>
+                            
+                            <audio id="bgMusic" loop>
+                                <source src="YOUR_MUSIC_FILE.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
                         </div>
                     </div>
                     
@@ -547,12 +573,12 @@
     </div>
 
     <script>
-        // --- 1. หน้าต่างแท็บและเสียงเปลี่ยนหน้า ---
+        // --- 1. ระบบคลิกเปลี่ยนแท็บพร้อมเล่นเสียงเอฟเฟกต์ ---
         function openTab(tabName) {
-            // เล่นเสียงเอฟเฟกต์ตอนกดแท็บ
-            const tabSound = document.getElementById("tab-sound");
-            tabSound.currentTime = 0;
-            tabSound.play().catch(e => console.log("คลิกเร็วเกินไปหรือเบราว์เซอร์บล็อกเสียงเริ่มต้น"));
+            // เล่นเสียงคลิกแท็บ
+            var sound = document.getElementById("tabSound");
+            sound.currentTime = 0;
+            sound.play().catch(function(e){ console.log("Audio play blocked by browser setup"); });
 
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-content");
@@ -569,93 +595,95 @@
             event.currentTarget.classList.add("active");
         }
 
-        // --- 2. ฟังก์ชัน Sparkle Trail สำหรับไม้กายสิทธิ์ ---
-        let lastX = 0, lastY = 0;
-        window.addEventListener('mousemove', (e) => {
-            // คำนวณความเร็วเมาส์เพื่อไม่ให้ดวงดาวสติ๊กเกอร์เยอะเกินไป
-            const distance = Math.hypot(e.clientX - lastX, e.clientY - lastY);
-            if (distance > 15) { 
-                const sparkle = document.createElement('div');
-                sparkle.className = 'cursor-sparkle';
-                sparkle.style.left = e.clientX + 'px';
-                sparkle.style.top = e.clientY + 'px';
-                
-                // สุ่มขนาดเล็กน้อยเพิ่มความสมจริง
-                const size = Math.random() * 12 + 8;
-                sparkle.style.width = size + 'px';
-                sparkle.style.height = size + 'px';
+        // --- 2. ระบบเมาส์ขยับแล้วมีประกายรูปภาพสุ่มหล่นลงมา (Sparkle Trail) ---
+        // คุณสามารถเตรียมไฟล์รูปภาพประกายเล็กๆ นามสกุล .jpg ไว้ในโฟลเดอร์เดียวกันได้เลย
+        const sparkleImages = [
+            'sparkle1.jpg',
+            'sparkle2.jpg',
+            'sparkle3.jpg',
+            'sparkle4.jpg',
+            'sparkle5.jpg'
+        ];
+        
+        let lastMove = 0;
+        document.addEventListener('mousemove', function(e) {
+            let now = Date.now();
+            // หน่วงเวลาการสร้างประกายเล็กน้อย (ทุกๆ 40ms) เพื่อไม่ให้รูปหล่นเยอะเกินจนกระตุก
+            if (now - lastMove < 40) return;
+            lastMove = now;
 
-                document.body.appendChild(sparkle);
-                
-                setTimeout(() => sparkle.remove(), 800);
-                lastX = e.clientX;
-                lastY = e.clientY;
-            }
+            // สร้าง Element รูปภาพประกาย
+            const img = document.createElement('img');
+            // สุ่มรูปภาพจากอาร์เรย์ที่เตรียมไว้
+            const randomSrc = sparkleImages[Math.floor(Math.random() * sparkleImages.length)];
+            img.src = randomSrc;
+            img.classList.add('mouse-sparkle');
+            
+            // กำหนดตำแหน่งให้ออกมาจากปลายเมาส์พอดี
+            img.style.left = (e.clientX - 9) + 'px';
+            img.style.top = (e.clientY - 9) + 'px';
+            
+            document.body.appendChild(img);
+            
+            // ลบรูปภาพทิ้งเมื่อเล่น Animation หล่นเสร็จสิ้น
+            setTimeout(() => {
+                img.remove();
+            }, 800);
         });
 
-        // --- 3. ระบบเครื่องเล่นไวนิล Interactive & สแครชแผ่นอืดๆ ---
-        const bgMusic = document.getElementById('bgMusic');
+        // --- 3. ระบบเครื่องเล่นแผ่นไวนิล Interactive + เอฟเฟกต์เสียงหน่วง (อื้ดๆ) ---
         const vinylDisk = document.getElementById('vinylDisk');
-        const playBtn = document.getElementById('playBtn');
-        let isDragging = false;
-        let startAngle = 0;
-        let currentRotation = 0;
+        const vinylNeedle = document.getElementById('vinylNeedle');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicStatus = document.getElementById('music-status');
+        
+        let isPlaying = false;
 
-        // ฟังก์ชันเปิด/ปิดเพลงปกติ
-        playBtn.addEventListener('click', () => {
-            if (bgMusic.paused) {
+        // ฟังก์ชันเปิด-ปิดเพลงเมื่อกดคลิกที่แผ่นไวนิล
+        vinylDisk.addEventListener('click', function(e) {
+            // ถ้าเป็นการกดค้างแผ่นสแครช จะไม่สลับสถานะ Play/Pause หลัก
+            if (e.detail > 1) return; 
+
+            if (!isPlaying) {
                 bgMusic.play();
                 vinylDisk.classList.add('playing');
-                playBtn.innerText = "PAUSE";
+                vinylNeedle.classList.add('playing');
+                musicStatus.innerText = "Now Playing...";
+                isPlaying = true;
             } else {
                 bgMusic.pause();
                 vinylDisk.classList.remove('playing');
-                playBtn.innerText = "PLAY";
+                vinylNeedle.classList.remove('playing');
+                musicStatus.innerText = "Music Paused";
+                isPlaying = false;
             }
         });
 
-        // ฟังก์ชันสแครชแผ่นเสียง (คลิกลากแล้วเสียงจะเปลี่ยนความเร็ว "อืดๆ ยืดๆ")
-        vinylDisk.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            vinylDisk.classList.remove('playing'); // หยุดหมุนอัตโนมัติชั่วคราว
-            
-            const rect = vinylDisk.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            startAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
-            
-            // ดรอปโทนเสียงเสียงลงเล็กน้อยตอนกดแผ่นค้างไว้
-            if (!bgMusic.paused) bgMusic.playbackRate = 0.5; 
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-
-            const rect = vinylDisk.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const currentAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
-            
-            // คำนวณความเร็วในการหมุนเมาส์รอบแผ่น
-            const angleDiff = currentAngle - startAngle;
-            currentRotation += angleDiff * (180 / Math.PI);
-            vinylDisk.style.transform = `rotate(${currentRotation}deg)`;
-            startAngle = currentAngle;
-
-            // ปรับระดับความเร็วยืดหดของเพลงตามแรงสแครช
-            if (!bgMusic.paused) {
-                const speed = Math.min(Math.max(Math.abs(angleDiff) * 5, 0.4), 2.0);
-                bgMusic.playbackRate = speed; // เพลงจะ ยาน/เร็ว ตามความเร็วการลากเมาส์
+        // เมื่อกดเมาส์ค้างที่แผ่นไวนิล (MouseDown): แผ่นหยุดหมุน + เพลงจะอื้ดดดๆ ช้าลงชั่วคราว
+        vinylDisk.addEventListener('mousedown', function() {
+            if (isPlaying) {
+                vinylDisk.classList.add('scratching');
+                // จำลองความเร็วแผ่นสแครชหน่วงๆ ต่ำสุด (0.1 คือเสียงอื้ดยืดแบบสโลว์โมชั่นมาก)
+                bgMusic.playbackRate = 0.2; 
+                musicStatus.innerText = "Scratching... ⚡";
             }
         });
 
-        window.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                bgMusic.playbackRate = 1.0; // คืนค่าความเร็วปกติ
-                if (!bgMusic.paused) {
-                    vinylDisk.classList.add('playing');
-                }
+        // เมื่อปล่อยเมาส์ (MouseUp): แผ่นหมุนต่อ + เพลงกลับมาเร็วปกติ
+        vinylDisk.addEventListener('mouseup', function() {
+            if (isPlaying) {
+                vinylDisk.classList.remove('scratching');
+                bgMusic.playbackRate = 1.0; // กลับมาความเร็วปกติ
+                musicStatus.innerText = "Now Playing...";
+            }
+        });
+
+        // ป้องกันกรณีคลิกค้างแล้วลากเมาส์ออกจากแผ่นไวนิลแล้วค้าง
+        vinylDisk.addEventListener('mouseleave', function() {
+            if (isPlaying && vinylDisk.classList.contains('scratching')) {
+                vinylDisk.classList.remove('scratching');
+                bgMusic.playbackRate = 1.0;
+                musicStatus.innerText = "Now Playing...";
             }
         });
     </script>
