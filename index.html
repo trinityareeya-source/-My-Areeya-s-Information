@@ -18,7 +18,8 @@
             --window-bg: #fffcf2;
         }
 
-        body {
+        /* [NEW] ตั้งค่า Cursor เป็นไม้กายสิทธิ์ (แก้ชื่อไฟล์รูปได้ที่นี่) */
+        body, html {
             background-color: var(--bg-color);
             background-image: url('my-bg.jpg');
             background-size: cover;
@@ -32,6 +33,31 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+            cursor: url('magic-wand.png') 0 0, auto; /* ใส่ภาพไม้กายสิทธิ์ตรงนี้ */
+        }
+
+        /* [NEW] บังคับให้ปุ่มต่างๆ ยังคงใช้ Cursor ไม้กายสิทธิ์ */
+        button, a, input, [role="button"], .vinyl-disk {
+            cursor: url('magic-wand.png') 0 0, pointer !important;
+        }
+
+        /* [NEW] สไตล์สำหรับเม็ดดาว/สติ๊กเกอร์ที่หลุดออกจากเมาส์ */
+        .cursor-sparkle {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url('star-sparkle.png'); /* เปลี่ยนเป็นสติ๊กเกอร์เล็กๆ ที่ต้องการได้ */
+            background-size: contain;
+            background-repeat: no-repeat;
+            transform: translate(-50%, -50%);
+            animation: fadeOutSparkle 0.8s forwards ease-out;
+        }
+
+        @keyframes fadeOutSparkle {
+            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translate(-50%, calc(-50% + 30px)) scale(0) rotate(180deg); opacity: 0; }
         }
 
         .container {
@@ -75,6 +101,57 @@
             pointer-events: none;
         }
         .sm-top-right { top: -35px; right: -25px; transform: rotate(-15deg); }
+
+        /* [NEW] สไตล์เครื่องเล่นแผ่นไวนิลสุด Cute */
+        .vinyl-container {
+            background: #e9e0c5;
+            border: 3px solid var(--dark-green);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .vinyl-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            user-select: none;
+        }
+
+        .vinyl-disk {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-image: url('my-vinyl.png'); /* เปลี่ยนเป็นภาพวาดนิ่งไวนิลของคุณอารียา */
+            background-size: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.1s linear;
+        }
+
+        /* คลาสสิกสำหรับการหมุนตอนเล่นเพลง */
+        .vinyl-disk.playing {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* รูตรงกลางแผ่นไวนิลเพิ่มความสมจริง */
+        .vinyl-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px; height: 12px;
+            background: var(--window-bg);
+            border-radius: 50%;
+            border: 2px solid var(--dark-green);
+        }
 
         .mini-icon {
             width: 39px;
@@ -140,7 +217,6 @@
             padding: 8px 20px;
             font-family: 'Itim', cursive;
             font-size: 1.1rem;
-            cursor: pointer;
             color: var(--dark-green);
             transition: all 0.3s;
         }
@@ -226,22 +302,6 @@
             display: inline-block;
             margin: 2px;
         }
-
-        .music-player {
-            background: var(--main-green);
-            border: 3px solid var(--dark-green);
-            border-radius: 10px;
-            padding: 10px;
-            color: white;
-            text-align: center;
-            font-family: 'Itim', cursive;
-        }
-        .music-player audio {
-            width: 100%;
-            height: 30px;
-            margin-top: 5px;
-            outline: none;
-        }
         
         .photo-dump-grid {
             display: grid;
@@ -308,6 +368,8 @@
 </head>
 <body>
 
+    <audio id="tab-sound" src="click-sound.mp3" preload="auto"></audio>
+
     <div class="container">
         <div class="window-header">
             <div class="window-controls">
@@ -349,12 +411,17 @@
                         
                         <div class="music-player-container">
                             <img src="sticker-bird.png" class="sticker-music sm-top-right" alt="sticker">
-                            <div class="music-player">
-                                <div>Play: <span>Stardew Valley OST - Cloud Country</span></div>
-                                <audio controls loop>
+                            <div class="vinyl-container">
+                                <div style="font-family: 'Itim'; font-size:0.9rem; color:var(--dark-green);">
+                                    💿 <span>Cloud Country</span>
+                                </div>
+                                <div class="vinyl-wrapper">
+                                    <div class="vinyl-disk" id="vinylDisk"></div>
+                                </div>
+                                <audio id="bgMusic" loop>
                                     <source src="YOUR_MUSIC_FILE.mp3" type="audio/mpeg">
-                                    Your browser does not support the audio element.
                                 </audio>
+                                <button id="playBtn" style="background:var(--main-green); border:2px solid var(--dark-green); color:white; border-radius:10px; padding:2px 12px; font-family:'Itim'; font-size:0.85rem;">PLAY</button>
                             </div>
                         </div>
                     </div>
@@ -480,7 +547,13 @@
     </div>
 
     <script>
+        // --- 1. หน้าต่างแท็บและเสียงเปลี่ยนหน้า ---
         function openTab(tabName) {
+            // เล่นเสียงเอฟเฟกต์ตอนกดแท็บ
+            const tabSound = document.getElementById("tab-sound");
+            tabSound.currentTime = 0;
+            tabSound.play().catch(e => console.log("คลิกเร็วเกินไปหรือเบราว์เซอร์บล็อกเสียงเริ่มต้น"));
+
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
@@ -495,6 +568,96 @@
             document.getElementById(tabName).classList.add("active");
             event.currentTarget.classList.add("active");
         }
+
+        // --- 2. ฟังก์ชัน Sparkle Trail สำหรับไม้กายสิทธิ์ ---
+        let lastX = 0, lastY = 0;
+        window.addEventListener('mousemove', (e) => {
+            // คำนวณความเร็วเมาส์เพื่อไม่ให้ดวงดาวสติ๊กเกอร์เยอะเกินไป
+            const distance = Math.hypot(e.clientX - lastX, e.clientY - lastY);
+            if (distance > 15) { 
+                const sparkle = document.createElement('div');
+                sparkle.className = 'cursor-sparkle';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                
+                // สุ่มขนาดเล็กน้อยเพิ่มความสมจริง
+                const size = Math.random() * 12 + 8;
+                sparkle.style.width = size + 'px';
+                sparkle.style.height = size + 'px';
+
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 800);
+                lastX = e.clientX;
+                lastY = e.clientY;
+            }
+        });
+
+        // --- 3. ระบบเครื่องเล่นไวนิล Interactive & สแครชแผ่นอืดๆ ---
+        const bgMusic = document.getElementById('bgMusic');
+        const vinylDisk = document.getElementById('vinylDisk');
+        const playBtn = document.getElementById('playBtn');
+        let isDragging = false;
+        let startAngle = 0;
+        let currentRotation = 0;
+
+        // ฟังก์ชันเปิด/ปิดเพลงปกติ
+        playBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                vinylDisk.classList.add('playing');
+                playBtn.innerText = "PAUSE";
+            } else {
+                bgMusic.pause();
+                vinylDisk.classList.remove('playing');
+                playBtn.innerText = "PLAY";
+            }
+        });
+
+        // ฟังก์ชันสแครชแผ่นเสียง (คลิกลากแล้วเสียงจะเปลี่ยนความเร็ว "อืดๆ ยืดๆ")
+        vinylDisk.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            vinylDisk.classList.remove('playing'); // หยุดหมุนอัตโนมัติชั่วคราว
+            
+            const rect = vinylDisk.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            startAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+            
+            // ดรอปโทนเสียงเสียงลงเล็กน้อยตอนกดแผ่นค้างไว้
+            if (!bgMusic.paused) bgMusic.playbackRate = 0.5; 
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const rect = vinylDisk.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const currentAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+            
+            // คำนวณความเร็วในการหมุนเมาส์รอบแผ่น
+            const angleDiff = currentAngle - startAngle;
+            currentRotation += angleDiff * (180 / Math.PI);
+            vinylDisk.style.transform = `rotate(${currentRotation}deg)`;
+            startAngle = currentAngle;
+
+            // ปรับระดับความเร็วยืดหดของเพลงตามแรงสแครช
+            if (!bgMusic.paused) {
+                const speed = Math.min(Math.max(Math.abs(angleDiff) * 5, 0.4), 2.0);
+                bgMusic.playbackRate = speed; // เพลงจะ ยาน/เร็ว ตามความเร็วการลากเมาส์
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                bgMusic.playbackRate = 1.0; // คืนค่าความเร็วปกติ
+                if (!bgMusic.paused) {
+                    vinylDisk.classList.add('playing');
+                }
+            }
+        });
     </script>
 </body>
 </html>
