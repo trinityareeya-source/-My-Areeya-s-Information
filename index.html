@@ -78,7 +78,6 @@
         .sp-top-left { top: -17px; left: -16px; transform: rotate(20deg); }
         .sp-bottom-right { bottom: 10px; right: -10px; transform: rotate(-15deg); }
 
-        /* --- สไตล์ใหม่สำหรับเครื่องเล่นแผ่นไวนิล Interactive --- */
         .music-player-container {
             position: relative;
             margin-top: 15px;
@@ -594,7 +593,6 @@
         let lastMove = 0;
         document.addEventListener('mousemove', function(e) {
             let now = Date.now();
-            // หน่วงเวลาการสร้างประกายเล็กน้อย (ทุกๆ 40ms) เพื่อไม่ให้รูปหล่นเยอะเกินจนกระตุก
             if (now - lastMove < 50) return;
             lastMove = now;
 
