@@ -17,17 +17,17 @@
             --text-color: #4a4a4a;
             --window-bg: #fffcf2;
             
-            /* กำหนดรูปภาพของ Cursor ไม้กายสิทธิ์ตรงนี้ (ใส่เลข 0 0 ด้านหลังเพื่อล็อกจุดคลิกให้อยู่ที่ปลายไม้) */
+            /* กำหนดรูปภาพของ Cursor ไม้กายสิทธิ์ */
             --cursor-normal: url('wand-normal.png') 0 0, auto;
             --cursor-click: url('wand-click.png') 0 0, auto;
         }
 
         /* ตั้งค่า Cursor ทั่วทั้งหน้าเว็บ */
-        html, body, button, a, .tab-btn, .vinyl-disk {
+        html, body, button, a, .tab-btn, .vinyl-disk, .lang-btn {
             cursor: var(--cursor-normal);
         }
         /* เมื่อกดคลิกค้างไว้ ให้เปลี่ยนรูป Cursor */
-        html:active, body:active, button:active, a:active, .tab-btn:active, .vinyl-disk:active {
+        html:active, body:active, button:active, a:active, .tab-btn:active, .vinyl-disk:active, .lang-btn:active {
             cursor: var(--cursor-click);
         }
 
@@ -45,7 +45,7 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            overflow-x: hidden; /* ป้องกันประกายเมาส์ทำหน้าจอขยายออก */
+            overflow-x: hidden;
         }
 
         .container {
@@ -105,7 +105,7 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background-image: url('vinyl-disk.png'); /* เปลี่ยนเป็นรูปวาดแผ่นไวนิลของคุณเองได้ */
+            background-image: url('vinyl-disk.png');
             background-size: cover;
             background-position: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -134,17 +134,17 @@
             pointer-events: none;
         }
         .vinyl-needle.playing {
-            transform: rotate(-10deg); /* แก้ไขจาก 45eg เป็น 45deg เพื่อให้เข็มขยับ */
+            transform: rotate(-10deg);
         }
 
         @keyframes rotateVinyl {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        /* --- สไตล์สำหรับเม็ดประกายที่จะหล่นลงมาจากเมาส์ --- */
+
         .mouse-sparkle {
             position: fixed;
-            width: 18px; /* ขนาดประกายเม็ดเล็กๆ */
+            width: 18px;
             height: 18px;
             object-fit: contain;
             pointer-events: none;
@@ -210,6 +210,27 @@
             color: var(--dark-green);
             font-size: 0.9rem;
             text-align: center;
+        }
+
+        /* ปุ่มสลับภาษา TH / EN */
+        .lang-switch {
+            display: flex;
+            gap: 5px;
+        }
+        .lang-btn {
+            background: white;
+            border: 2px solid var(--dark-green);
+            color: var(--dark-green);
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-family: 'Itim', cursive;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .lang-btn.active {
+            background: var(--accent-orange);
+            color: white;
         }
 
         .tabs {
@@ -388,12 +409,17 @@
             <div class="url-bar">
                 <i class="fas fa-lock" style="font-size: 0.8rem;"></i> https://areeya-profile.com
             </div>
+            <!-- ปุ่มเปลี่ยนภาษา TH/EN -->
+            <div class="lang-switch">
+                <button class="lang-btn active" id="btn-th" onclick="switchLanguage('th')">TH</button>
+                <button class="lang-btn" id="btn-en" onclick="switchLanguage('en')">EN</button>
+            </div>
         </div>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="openTab('about')">About Me</button>
-            <button class="tab-btn" onclick="openTab('resume')">Resume</button>
-            <button class="tab-btn" onclick="openTab('contact')">Contact</button>
+            <button class="tab-btn active" id="tab-btn-about" onclick="openTab('about')">About Me</button>
+            <button class="tab-btn" id="tab-btn-resume" onclick="openTab('resume')">Resume</button>
+            <button class="tab-btn" id="tab-btn-contact" onclick="openTab('contact')">Contact</button>
         </div>
 
         <div class="content-area">
@@ -408,7 +434,7 @@
                         </div>
                         
                         <h1>Areeya Promkhambut</h1>
-                        <p style="font-size: 0.9rem;">นางสาวอารียา พรหมคำบุตร</p>
+                        <p style="font-size: 0.9rem;" id="sub-name">นางสาวอารียา พรหมคำบุตร</p>
                         
                         <span class="badge">
                             <img src="icon-cake.png" class="mini-icon" alt=""> 17 Sep 2006
@@ -423,7 +449,6 @@
                             </div>
                             
                             <div class="vinyl-wrapper">
-                                <!-- แก้ไข id จาก "vinyl Needle" เป็น "vinylNeedle" เพื่อให้เชื่อมกับ JavaScript ได้ถูกต้อง -->
                                 <img src="vinyl-needle.png" id="vinylNeedle" class="vinyl-needle" alt="needle">
                                 <div id="vinylDisk" class="vinyl-disk"></div>
                             </div>
@@ -440,10 +465,10 @@
                     </div>
                     
                     <div class="right-col-scroll">
-                        <h2>✧ About Me ✧</h2>
-                        <p><strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ ประธานรุ่นปีที่ 11 มีความสนใจในด้านระบบสมองกลฝังตัวและเครือข่ายคอมพิวเตอร์</p>
+                        <h2 id="heading-about">✧ About Me ✧</h2>
+                        <p id="desc-about"><strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ ประธานรุ่นปีที่ 11 มีความสนใจในด้านระบบสมองกลฝังตัวและเครือข่ายคอมพิวเตอร์</p>
                         
-                        <h2>✧ My Interests ✧</h2>
+                        <h2 id="heading-interests">✧ My Interests ✧</h2>
                         <p>
                             <span class="badge" style="background:var(--dark-blue)">Investment Banking</span>
                             <span class="badge" style="background:var(--dark-blue)">Aerospace</span>
@@ -467,39 +492,39 @@
 
             <div id="resume" class="tab-content">
                 <div style="background: white; border: 3px solid var(--main-green); border-radius: 15px; padding: 20px; max-height: 440px; overflow-y: auto;">
-                    <h2><img src="icon-star-title.png" class="mini-icon" alt=""> Experience & Activities</h2>
+                    <h2><img src="icon-star-title.png" class="mini-icon" alt=""> <span id="heading-exp">Experience & Activities</span></h2>
                     
                     <div class="resume-item">
                         <div class="resume-title">Project Manager & UX/UI Developer</div>
-                        <div class="resume-date">Nov 2025 - Present</div>
-                        <p><strong>TrueLens | Social Innovation Project:</strong> ได้งบสนับสนุน 20,000 บาทจากทาง สสส. เพื่อการนำแนวคิด AI ที่เน้นมนุษย์เป็นศูนย์กลางไปพัฒนาต้นแบบ LINE chatbot เพื่อต่อต้านข้อมูลเท็จ deepfake ผ่านการออกแบบเพื่อพฤติกรรมเก้าเป้าหมายภายใต้โครงการ Rookie Innovator Program SS3 ที่ SYSI</p>
+                        <div class="resume-date" id="date-exp1">Nov 2025 - Present</div>
+                        <p id="desc-exp1"><strong>TrueLens | Social Innovation Project:</strong> ได้งบสนับสนุน 20,000 บาทจากทาง สสส. เพื่อการนำแนวคิด AI ที่เน้นมนุษย์เป็นศูนย์กลางไปพัฒนาต้นแบบ LINE chatbot เพื่อต่อต้านข้อมูลเท็จ deepfake ผ่านการออกแบบเพื่อพฤติกรรมเก้าเป้าหมายภายใต้โครงการ Rookie Innovator Program SS3 ที่ SYSI</p>
                     </div>
 
                     <div class="resume-item">
                         <div class="resume-title">Project Manager and Financial Operation</div>
                         <div class="resume-date">April 2026 - May 2026</div>
-                        <p><strong>Youth Voice for Eco-Law Forum:</strong> ผู้ริเริ่มจัดงานในชื่อ NGO อิสระ Saphap.Thailand ภายใต้ทุน Ashoka NextGen Chanemakers จัดเวทีคัดเลือกและรวบรวมเยาวชนอายุ 15 - 25 ปีจำนวน 30 คนมาที่รัฐสภาเพื่อร่วมร่างและออกแบบกฎหมายสิ่งแวดล้อมเชิงปฏิบัติ</p>
+                        <p id="desc-exp2"><strong>Youth Voice for Eco-Law Forum:</strong> ผู้ริเริ่มจัดงานในชื่อ NGO อิสระ Saphap.Thailand ภายใต้ทุน Ashoka NextGen Chanemakers จัดเวทีคัดเลือกและรวบรวมเยาวชนอายุ 15 - 25 ปีจำนวน 30 คนมาที่รัฐสภาเพื่อร่วมร่างและออกแบบกฎหมายสิ่งแวดล้อมเชิงปฏิบัติ</p>
                     </div>
 
                     <div class="resume-item">
                         <div class="resume-title">Active Environmental Contributor</div>
                         <div class="resume-date">Dec 2025 - May 2026</div>
-                        <p><strong>Ashoka NextGen Changemakers:</strong> เป็นหนึ่งในเยาวชนผู้ถูกคัดเลือกให้เป็นตัวแทนผู้สร้างการเปลี่ยนแปลงในหัวข้อสิ่งแวดล้อมในประเทศไทย เจาะลึกในด้านการอนุรักษ์พื้นที่ชุ่มน้ำและสภาพแวดล้อมในไทยที่ถูกมองข้าม</p>
+                        <p id="desc-exp3"><strong>Ashoka NextGen Changemakers:</strong> เป็นหนึ่งในเยาวชนผู้ถูกคัดเลือกให้เป็นตัวแทนผู้สร้างการเปลี่ยนแปลงในหัวข้อสิ่งแวดล้อมในประเทศไทย เจาะลึกในด้านการอนุรักษ์พื้นที่ชุ่มน้ำและสภาพแวดล้อมในไทยที่ถูกมองข้าม</p>
                     </div>
 
-                    <h2><img src="icon-trophy.png" class="mini-icon" alt=""> Honors & Awards</h2>
+                    <h2><img src="icon-trophy.png" class="mini-icon" alt=""> <span id="heading-awards">Honors & Awards</span></h2>
                     <div class="resume-item">
                         <div class="resume-title">Winner | Policy Analyst</div>
                         <div class="resume-date">Nov 2025</div>
-                        <p><strong>Thammasat Youth Deliberation Hackathon:</strong> วิเคราะห์ช่องว่างในการเข้าถึงบำนาญและค่าครองชีพเพื่อเสนอมาตรการแทรกแซงเชิงนโยบายที่ขยายผลได้สำหรับผู้สูงอายุ</p>
+                        <p id="desc-award1"><strong>Thammasat Youth Deliberation Hackathon:</strong> วิเคราะห์ช่องว่างในการเข้าถึงบำนาญและค่าครองชีพเพื่อเสนอมาตรการแทรกแซงเชิงนโยบายที่ขยายผลได้สำหรับผู้สูงอายุ</p>
                     </div>
                     <div class="resume-item">
                         <div class="resume-title">Finalist Policy Drafter | Strategic Planner</div>
                         <div class="resume-date">July 2025</div>
-                        <p><strong>Environmental PolicyFest Hackathon (GYBN):</strong> ออกแบบคอนเซปต์บนเว็บที่ส่งเสริมการประหยัดไฟฟ้าผ่านวิเคราะห์พฤติกรรมของกลุ่มเป้าหมาย</p>
+                        <p id="desc-award2"><strong>Environmental PolicyFest Hackathon (GYBN):</strong> ออกแบบคอนเซปต์บนเว็บที่ส่งเสริมการประหยัดไฟฟ้าผ่านวิเคราะห์พฤติกรรมของกลุ่มเป้าหมาย</p>
                     </div>
                     
-                    <h2><img src="icon-book.png" class="mini-icon" alt=""> Education</h2>
+                    <h2><img src="icon-book.png" class="mini-icon" alt=""> <span id="heading-edu">Education</span></h2>
                     <ul>
                         <li><strong>Kalasin University | Kalasin:</strong> Bachelor of Computer Engineering (2026 - Present)</li>
                         <li><strong>SWU Demonstration School Prasarnmit | Bangkok:</strong> (2022 - 2023)</li>
@@ -560,9 +585,79 @@
     </div>
 
     <script>
+        // --- ระบบสลับภาษา TH / EN ---
+        let currentLang = 'th';
+        
+        const langData = {
+            th: {
+                subName: "นางสาวอารียา พรหมคำบุตร",
+                musicClick: "Click Vinyl to Play!",
+                musicPlaying: "Now Playing...",
+                musicPaused: "Music Paused",
+                headingAbout: "✧ About Me ✧",
+                descAbout: "<strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ ประธานรุ่นปีที่ 11 มีความสนใจในด้านระบบสมองกลฝังตัวและเครือข่ายคอมพิวเตอร์",
+                headingInterests: "✧ My Interests ✧",
+                headingExp: "Experience & Activities",
+                dateExp1: "Nov 2025 - Present",
+                descExp1: "<strong>TrueLens | Social Innovation Project:</strong> ได้งบสนับสนุน 20,000 บาทจากทาง สสส. เพื่อการนำแนวคิด AI ที่เน้นมนุษย์เป็นศูนย์กลางไปพัฒนาต้นแบบ LINE chatbot เพื่อต่อต้านข้อมูลเท็จ deepfake ผ่านการออกแบบเพื่อพฤติกรรมเก้าเป้าหมายภายใต้โครงการ Rookie Innovator Program SS3 ที่ SYSI",
+                descExp2: "<strong>Youth Voice for Eco-Law Forum:</strong> ผู้ริเริ่มจัดงานในชื่อ NGO อิสระ Saphap.Thailand ภายใต้ทุน Ashoka NextGen Chanemakers จัดเวทีคัดเลือกและรวบรวมเยาวชนอายุ 15 - 25 ปีจำนวน 30 คนมาที่รัฐสภาเพื่อร่วมร่างและออกแบบกฎหมายสิ่งแวดล้อมเชิงปฏิบัติ",
+                descExp3: "<strong>Ashoka NextGen Changemakers:</strong> เป็นหนึ่งในเยาวชนผู้ถูกคัดเลือกให้เป็นตัวแทนผู้สร้างการเปลี่ยนแปลงในหัวข้อสิ่งแวดล้อมในประเทศไทย เจาะลึกในด้านการอนุรักษ์พื้นที่ชุ่มน้ำและสภาพแวดล้อมในไทยที่ถูกมองข้าม",
+                headingAwards: "Honors & Awards",
+                descAward1: "<strong>Thammasat Youth Deliberation Hackathon:</strong> วิเคราะห์ช่องว่างในการเข้าถึงบำนาญและค่าครองชีพเพื่อเสนอมาตรการแทรกแซงเชิงนโยบายที่ขยายผลได้สำหรับผู้สูงอายุ",
+                descAward2: "<strong>Environmental PolicyFest Hackathon (GYBN):</strong> ออกแบบคอนเซปต์บนเว็บที่ส่งเสริมการประหยัดไฟฟ้าผ่านวิเคราะห์พฤติกรรมของกลุ่มเป้าหมาย",
+                headingEdu: "Education"
+            },
+            en: {
+                subName: "Ms. Areeya Promkhambut",
+                musicClick: "Click Vinyl to Play!",
+                musicPlaying: "Now Playing...",
+                musicPaused: "Music Paused",
+                headingAbout: "✧ About Me ✧",
+                descAbout: "<strong>Areeya Promkhambut</strong> is a 1st-year Computer Engineering student at Kalasin University and President of the 11th Cohort. She is passionate about embedded systems and computer networking.",
+                headingInterests: "✧ My Interests ✧",
+                headingExp: "Experience & Activities",
+                dateExp1: "Nov 2025 - Present",
+                descExp1: "<strong>TrueLens | Social Innovation Project:</strong> Awarded a 20,000 THB grant from ThaiHealth (SSS) to implement Human-Centered AI concepts and develop a LINE chatbot prototype combating deepfake disinformation through target behavior design under the Rookie Innovator Program SS3 at SYSI.",
+                descExp2: "<strong>Youth Voice for Eco-Law Forum:</strong> Event initiator under the independent NGO 'Saphap.Thailand', funded by Ashoka NextGen Changemakers. Selected and convened 30 youth participants (aged 15–25) at the Parliament House to co-draft practical environmental legislation.",
+                descExp3: "<strong>Ashoka NextGen Changemakers:</strong> Selected as a youth changemaker representative focusing on environmental issues in Thailand, diving deep into wetland conservation and overlooked environmental topics.",
+                headingAwards: "Honors & Awards",
+                descAward1: "<strong>Thammasat Youth Deliberation Hackathon:</strong> Analyzed gaps in pension access and cost of living to propose scalable policy interventions for the elderly.",
+                descAward2: "<strong>Environmental PolicyFest Hackathon (GYBN):</strong> Designed a web-based concept promoting electricity conservation through target group behavior analysis.",
+                headingEdu: "Education"
+            }
+        };
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            
+            // อัปเดตข้อความตามภาษาที่เลือก
+            document.getElementById('sub-name').innerText = langData[lang].subName;
+            document.getElementById('heading-about').innerText = langData[lang].headingAbout;
+            document.getElementById('desc-about').innerHTML = langData[lang].descAbout;
+            document.getElementById('heading-interests').innerText = langData[lang].headingInterests;
+            
+            document.getElementById('heading-exp').innerText = langData[lang].headingExp;
+            document.getElementById('date-exp1').innerText = langData[lang].dateExp1;
+            document.getElementById('desc-exp1').innerHTML = langData[lang].descExp1;
+            document.getElementById('desc-exp2').innerHTML = langData[lang].descExp2;
+            document.getElementById('desc-exp3').innerHTML = langData[lang].descExp3;
+            
+            document.getElementById('heading-awards').innerText = langData[lang].headingAwards;
+            document.getElementById('desc-award1').innerHTML = langData[lang].descAward1;
+            document.getElementById('desc-award2').innerHTML = langData[lang].descAward2;
+            document.getElementById('heading-edu').innerText = langData[lang].headingEdu;
+
+            if(!isPlaying) {
+                musicStatus.innerText = langData[lang].musicClick;
+            } else {
+                musicStatus.innerText = langData[lang].musicPlaying;
+            }
+        }
+
         // --- 1. ระบบคลิกเปลี่ยนแท็บพร้อมเล่นเสียงเอฟเฟกต์ ---
         function openTab(tabName) {
-            // เล่นเสียงคลิกแท็บ
             var sound = document.getElementById("tabSound");
             sound.currentTime = 0;
             sound.play().catch(function(e){ console.log("Audio play blocked by browser setup"); });
@@ -594,20 +689,16 @@
             if (now - lastMove < 50) return;
             lastMove = now;
 
-            // สร้าง Element รูปภาพประกาย
             const img = document.createElement('img');
-            // สุ่มรูปภาพจากอาร์เรย์ที่เตรียมไว้
             const randomSrc = sparkleImages[Math.floor(Math.random() * sparkleImages.length)];
             img.src = randomSrc;
             img.classList.add('mouse-sparkle');
             
-            // 定位ให้ออกมาจากปลายเมาส์พอดี
             img.style.left = (e.clientX - 9) + 'px';
             img.style.top = (e.clientY - 9) + 'px';
             
             document.body.appendChild(img);
             
-            // ลบรูปภาพทิ้งเมื่อเล่น Animation หล่นเสร็จสิ้น
             setTimeout(() => {
                 img.remove();
             }, 800);
@@ -621,51 +712,45 @@
         
         let isPlaying = false;
 
-        // ฟังก์ชันเปิด-ปิดเพลงเมื่อกดคลิกที่แผ่นไวนิล
         vinylDisk.addEventListener('click', function(e) {
-            // ถ้าเป็นการกดค้างแผ่นสแครช จะไม่สลับสถานะ Play/Pause หลัก
             if (e.detail > 1) return; 
 
             if (!isPlaying) {
                 bgMusic.play().catch(err => console.log("Audio play interaction failed:", err));
                 vinylDisk.classList.add('playing');
                 vinylNeedle.classList.add('playing');
-                musicStatus.innerText = "Now Playing...";
+                musicStatus.innerText = langData[currentLang].musicPlaying;
                 isPlaying = true;
             } else {
                 bgMusic.pause();
                 vinylDisk.classList.remove('playing');
                 vinylNeedle.classList.remove('playing');
-                musicStatus.innerText = "Music Paused";
+                musicStatus.innerText = langData[currentLang].musicPaused;
                 isPlaying = false;
             }
         });
 
-        // เมื่อกดเมาส์ค้างที่แผ่นไวนิล (MouseDown): แผ่นหยุดหมุน + เพลงจะอื้ดดดๆ ช้าลงชั่วคราว
         vinylDisk.addEventListener('mousedown', function() {
             if (isPlaying) {
                 vinylDisk.classList.add('scratching');
-                // จำลองความเร็วแผ่นสแครชหน่วงๆ ต่ำสุด (0.2 คือเสียงอื้ดยืดแบบสโลว์โมชั่นมาก)
                 bgMusic.playbackRate = 0.2; 
                 musicStatus.innerText = "...";
             }
         });
 
-        // เมื่อปล่อยเมาส์ (MouseUp): แผ่นหมุนต่อ + เพลงกลับมาเร็วปกติ
         vinylDisk.addEventListener('mouseup', function() {
             if (isPlaying) {
                 vinylDisk.classList.remove('scratching');
-                bgMusic.playbackRate = 1.0; // กลับมาความเร็วปกติ
-                musicStatus.innerText = "Now Playing...";
+                bgMusic.playbackRate = 1.0;
+                musicStatus.innerText = langData[currentLang].musicPlaying;
             }
         });
 
-        // ป้องกันกรณีคลิกค้างแล้วลากเมาส์ออกจากแผ่นไวนิลแล้วค้าง
         vinylDisk.addEventListener('mouseleave', function() {
             if (isPlaying && vinylDisk.classList.contains('scratching')) {
                 vinylDisk.classList.remove('scratching');
                 bgMusic.playbackRate = 1.0;
-                musicStatus.innerText = "Now Playing...";
+                musicStatus.innerText = langData[currentLang].musicPlaying;
             }
         });
     </script>
