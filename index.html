@@ -116,6 +116,10 @@
         .vinyl-disk.playing {
             animation: rotateVinyl 3s linear infinite;
         }
+        /* คลาสสำหรับหยุดแผ่นให้อยู่กับที่ ณ องศาปัจจุบันเมื่อกดหยุด */
+        .vinyl-disk.paused {
+            animation-play-state: paused;
+        }
         /* คลาสตอนกดแผ่นค้างไว้ (เอฟเฟกต์หยุดหมุน/อื้ดๆ) */
         .vinyl-disk.scratching {
             animation-play-state: paused;
@@ -704,7 +708,7 @@
             }, 800);
         });
 
-        // --- 3. ระบบเครื่องเล่นแผ่นไวนิล Interactive + เอฟเฟกต์เสียงหน่วง (อื้ดๆ) ---
+        // --- 3. ระบบเครื่องเล่นแผ่นไวนิล Interactive ---
         const vinylDisk = document.getElementById('vinylDisk');
         const vinylNeedle = document.getElementById('vinylNeedle');
         const bgMusic = document.getElementById('bgMusic');
@@ -717,13 +721,20 @@
 
             if (!isPlaying) {
                 bgMusic.play().catch(err => console.log("Audio play interaction failed:", err));
+                
+                // เริ่มเล่น: ให้หมุนต่อ และเอาสถานะ paused ออก
                 vinylDisk.classList.add('playing');
+                vinylDisk.classList.remove('paused');
+                
                 vinylNeedle.classList.add('playing');
                 musicStatus.innerText = langData[currentLang].musicPlaying;
                 isPlaying = true;
             } else {
                 bgMusic.pause();
-                vinylDisk.classList.remove('playing');
+                
+                // กดหยุด: ค้างแผ่นไวนิลไว้ที่มุมปัจจุบัน ไม่ให้คายกลับไปจุดเริ่ม
+                vinylDisk.classList.add('paused');
+                
                 vinylNeedle.classList.remove('playing');
                 musicStatus.innerText = langData[currentLang].musicPaused;
                 isPlaying = false;
