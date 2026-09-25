@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Areeya's Profile📝</title>
+    <title>Areeya's Profile 📝</title>
     <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -599,16 +599,16 @@
                 musicPlaying: "Now Playing...",
                 musicPaused: "Music Paused",
                 headingAbout: "✧ About Me ✧",
-                descAbout: "<strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ ประธานรุ่นปีที่ 11 มีความสนใจในด้านระบบสมองกลฝังตัวและเครือข่ายคอมพิวเตอร์",
+                descAbout: "<strong>อารียา พรหมคำบุตร</strong> ปัจจุบันเป็นนักศึกษาชั้นปีที่ 1 มหาวิทยาลัยกาฬสินธุ์ สาขาวิศวกรรมคอมพิวเตอร์ ประธานรุ่นปีที่ 11 นอกจากที่มีความสนใจในด้านระบบสมองกลฝังตัวแล้ว อาริก็ยังชอบการศึกษาหาอ่านเรื่องที่เจ๋ง ๆ อย่างเรื่องของเห็ดราและโลกใต้ท้องทะเล (นอกโลกก็สนใจด้วยเหมือนกันไม่ใช่น้อยนะ!)",
                 headingInterests: "✧ My Interests ✧",
                 headingExp: "Experience & Activities",
                 dateExp1: "Nov 2025 - Present",
                 descExp1: "<strong>TrueLens | Social Innovation Project:</strong> ได้งบสนับสนุน 20,000 บาทจากทาง สสส. เพื่อการนำแนวคิด AI ที่เน้นมนุษย์เป็นศูนย์กลางไปพัฒนาต้นแบบ LINE chatbot เพื่อต่อต้านข้อมูลเท็จ deepfake ผ่านการออกแบบเพื่อพฤติกรรมเก้าเป้าหมายภายใต้โครงการ Rookie Innovator Program SS3 ที่ SYSI",
-                descExp2: "<strong>Youth Voice for Eco-Law Forum:</strong> ผู้ริเริ่มจัดงานในชื่อ NGO อิสระ Saphap.Thailand ภายใต้ทุน Ashoka NextGen Chanemakers จัดเวทีคัดเลือกและรวบรวมเยาวชนอายุ 15 - 25 ปีจำนวน 30 คนมาที่รัฐสภาเพื่อร่วมร่างและออกแบบกฎหมายสิ่งแวดล้อมเชิงปฏิบัติ",
+                descExp2: "<strong>Youth Voice for Eco-Law Forum:</strong> ผู้ริเริ่มจัดงานในชื่อเครือข่าย NGO อิสระ Saphap.Thailand ภายใต้ทุน Ashoka NextGen Chanemakers จัดเวทีคัดเลือกและรวบรวมเยาวชนอายุ 15 - 25 ปีจำนวน 30 คนมาที่รัฐสภาเพื่อร่วมร่างและออกแบบกฎหมายสิ่งแวดล้อมเชิงปฏิบัติ",
                 descExp3: "<strong>Ashoka NextGen Changemakers:</strong> เป็นหนึ่งในเยาวชนผู้ถูกคัดเลือกให้เป็นตัวแทนผู้สร้างการเปลี่ยนแปลงในหัวข้อสิ่งแวดล้อมในประเทศไทย เจาะลึกในด้านการอนุรักษ์พื้นที่ชุ่มน้ำและสภาพแวดล้อมในไทยที่ถูกมองข้าม",
                 headingAwards: "Honors & Awards",
                 descAward1: "<strong>Thammasat Youth Deliberation Hackathon:</strong> วิเคราะห์ช่องว่างในการเข้าถึงบำนาญและค่าครองชีพเพื่อเสนอมาตรการแทรกแซงเชิงนโยบายที่ขยายผลได้สำหรับผู้สูงอายุ",
-                descAward2: "<strong>Environmental PolicyFest Hackathon (GYBN):</strong> ออกแบบคอนเซปต์บนเว็บที่ส่งเสริมการประหยัดไฟฟ้าผ่านวิเคราะห์พฤติกรรมของกลุ่มเป้าหมาย",
+                descAward2: "<strong>Environmental PolicyFest Hackathon (GYBN):</strong> ออกแบบเกมที่ส่งเสริมการประหยัดไฟฟ้าผ่านวิเคราะห์พฤติกรรมของกลุ่มเป้าหมาย",
                 headingEdu: "Education"
             },
             en: {
@@ -660,7 +660,6 @@
             }
         }
 
-        // --- 1. ระบบคลิกเปลี่ยนแท็บพร้อมเล่นเสียงเอฟเฟกต์ ---
         function openTab(tabName) {
             var sound = document.getElementById("tabSound");
             sound.currentTime = 0;
@@ -722,7 +721,6 @@
             if (!isPlaying) {
                 bgMusic.play().catch(err => console.log("Audio play interaction failed:", err));
                 
-                // เริ่มเล่น: ให้หมุนต่อ และเอาสถานะ paused ออก
                 vinylDisk.classList.add('playing');
                 vinylDisk.classList.remove('paused');
                 
@@ -732,7 +730,6 @@
             } else {
                 bgMusic.pause();
                 
-                // กดหยุด: ค้างแผ่นไวนิลไว้ที่มุมปัจจุบัน ไม่ให้คายกลับไปจุดเริ่ม
                 vinylDisk.classList.add('paused');
                 
                 vinylNeedle.classList.remove('playing');
